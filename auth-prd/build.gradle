@@ -1,0 +1,4 @@
+dependencies {
+    api project(':auth-api')
+    implementation('com.mcst:web-prd')
+}

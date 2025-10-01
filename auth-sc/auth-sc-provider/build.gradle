@@ -1,0 +1,6 @@
+dependencies {
+    api('com.mcst:web-micro')
+    api project(':auth-sc:auth-sc-client')
+    api project(':auth-sc:resource-sc-client')
+    api project(':auth-server')
+}

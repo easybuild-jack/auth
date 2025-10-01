@@ -1,0 +1,5 @@
+dependencies {
+    api('com.mcst:service-api')
+    api('com.mcst:easyfk-authority')
+    compileOnly('com.mcst:easyfk-core')
+}

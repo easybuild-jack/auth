@@ -1,0 +1,6 @@
+dependencies {
+    api project(':auth-api')
+    api('com.mcst:easyfk-authority')
+    api('com.mcst:orm-mybatis')
+}
+

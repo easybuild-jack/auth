@@ -1,0 +1,25 @@
+// 所有项目通用配置
+allprojects {
+    //指定项目版本号和group
+    version = '3.2.12'
+    group = 'com.mcst'
+
+    apply plugin: 'java-library'
+    apply plugin: 'maven-publish'
+    java {
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
+        withSourcesJar()
+    }
+
+    [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+}
+subprojects {
+    dependencies {
+        implementation platform(libs.dependencies)
+        compileOnly libs.lombok
+        testCompileOnly libs.lombok
+        annotationProcessor(libs.lombok, libs.processor)
+        testAnnotationProcessor(libs.lombok, libs.processor)
+    }
+}
