@@ -17,8 +17,5 @@ include 'auth-sc:auth-sc-client'
 findProject(':auth-sc:auth-sc-client')?.name = 'auth-sc-client'
 include 'auth-sc:auth-sc-provider'
 findProject(':auth-sc:auth-sc-provider')?.name = 'auth-sc-provider'
-
 include 'auth-prd'
-
-
 include 'auth-sc:resource-sc-client'
