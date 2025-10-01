@@ -7,17 +7,17 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
-* <p>
-* 角色数据编辑对象
-* </p>
-*
-* @author liu yijun
-* @since 2024-12-31
-*/
+ * <p>
+ * 角色数据编辑对象
+ * </p>
+ *
+ * @author liu yijun
+ * @since 2024-12-31
+ */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-@Schema(description="角色数据编辑对象")
+@Schema(description = "角色数据编辑对象")
 public class RoleEditReq extends RoleDto {
 
 

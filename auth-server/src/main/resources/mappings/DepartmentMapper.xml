@@ -18,10 +18,10 @@
     <sql id="Department_Base_Column_List">
         id
         ,
-            deleted,
-            version,
-            insert_time,
-            last_update_time,
+        deleted,
+        version,
+        insert_time,
+        last_update_time,
         name, code, status
     </sql>
 

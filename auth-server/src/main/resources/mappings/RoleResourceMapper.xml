@@ -15,8 +15,8 @@
     <sql id="RoleResource_Base_Column_List">
         id
         ,
-            insert_time,
-            last_update_time,
+        insert_time,
+        last_update_time,
         role_id, resource_id
     </sql>
 

@@ -1,75 +1,67 @@
 package com.mcst.module.auth.api.param;
 
+import com.mcst.easyfk.core.dto.request.BasicParam;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-import com.mcst.easyfk.core.dto.request.BasicParam;
 
 /**
-* <p>
-* 部门数据参数对象
-* </p>
-*
-* @author liu yijun
-* @since 2024-12-31
-*/
+ * <p>
+ * 部门数据参数对象
+ * </p>
+ *
+ * @author liu yijun
+ * @since 2024-12-31
+ */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-@Schema(description="部门数据参数对象")
+@Schema(description = "部门数据参数对象")
 public class DepartmentParam extends BasicParam {
 
 
-
     /**
-    * 部门ID
-    */
-    @Schema(description= "部门ID")
+     * 部门ID
+     */
+    @Schema(description = "部门ID")
     private String departmentId;
 
     /**
-    * 名称
-    */
-    @Schema(description= "名称")
+     * 名称
+     */
+    @Schema(description = "名称")
     private String departmentName;
 
     /**
-    * 编号
-    */
-    @Schema(description= "编号")
+     * 编号
+     */
+    @Schema(description = "编号")
     private String code;
 
     /**
-    * 禁用状态 0可用，1禁用
-    */
-    @Schema(description= "禁用状态 0可用，1禁用")
+     * 禁用状态 0可用，1禁用
+     */
+    @Schema(description = "禁用状态 0可用，1禁用")
     private Integer forbiddenFlag;
 
     /**
-    * SaasId
-    */
-    @Schema(description= "SaasId")
+     * SaasId
+     */
+    @Schema(description = "SaasId")
     private String saasId;
 
     /**
-    * Saas名称
-    */
-    @Schema(description= "Saas名称")
+     * Saas名称
+     */
+    @Schema(description = "Saas名称")
     private String saasName;
 
     /**
-    * 平台类型
-    */
-    @Schema(description= "平台类型")
+     * 平台类型
+     */
+    @Schema(description = "平台类型")
     private String type;
-
-
-
-
-
-
-
 
 
 }

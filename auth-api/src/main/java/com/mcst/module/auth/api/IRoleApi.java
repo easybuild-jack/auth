@@ -1,11 +1,11 @@
 package com.mcst.module.auth.api;
 
 import com.mcst.easyfk.core.dto.response.BaseResult;
+import com.mcst.easyfk.service.api.IBaseApi;
 import com.mcst.module.auth.api.request.RoleReq;
 import com.mcst.module.auth.api.response.RoleResp;
 import com.mcst.module.auth.api.vo.RoleGrantVO;
 import com.mcst.module.auth.api.vo.RoleResourceVO;
-import com.mcst.easyfk.service.api.IBaseApi;
 
 import java.util.List;
 

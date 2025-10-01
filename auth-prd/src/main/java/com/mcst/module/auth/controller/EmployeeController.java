@@ -1,6 +1,7 @@
 package com.mcst.module.auth.controller;
 
 import com.mcst.easyfk.authority.annotation.AuthResource;
+import com.mcst.easyfk.authority.annotation.ResourceController;
 import com.mcst.easyfk.authority.enums.ResourceCategory;
 import com.mcst.easyfk.core.builders.MRPBuilder;
 import com.mcst.easyfk.core.builders.RRBuilder;
@@ -22,7 +23,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import com.mcst.easyfk.authority.annotation.ResourceController;
 
 import java.util.List;
 
@@ -63,7 +63,7 @@ public class EmployeeController {
     @Operation(summary = "新增/编辑")
     @PostMapping("/addOrEdit")
     @AuthResource(id = "employeeAddOrEdit", name = "新增/编辑员工", title = "新增/编辑", pId = "employeeManage", pName = "员工管理", sort = 99301,
-        category = ResourceCategory.action, actionCode = "addOrEdit")
+            category = ResourceCategory.action, actionCode = "addOrEdit")
     public ResponseResult<?> addOrEdit(@RequestBody EmployeeEditReq employeeDTO) {
         ModifyRequest<EmployeeReq> requestParam = MRPBuilder.buildRequest(employeeDTO, EmployeeReq.class);
         return RRBuilder.buildBodyByBaseResult(this.employeeApi.save(requestParam));
@@ -72,7 +72,7 @@ public class EmployeeController {
     @Operation(summary = "删除", description = "根据Id值批量删除")
     @PostMapping("/delete")
     @AuthResource(id = "employeeDelete", name = "删除员工", title = "删除", pId = "employeeManage", pName = "员工管理", sort = 99302, category = ResourceCategory.action,
-        actionCode = "delete")
+            actionCode = "delete")
     public ResponseResult<?> delete(@Validated @RequestBody BatchBasicReq<String> batchBasicReq) {
         List<String> idArray = SplitUtil.split(batchBasicReq.getIds());
         ModifyRequest<EmployeeReq> requestParam = MRPBuilder.<EmployeeReq>builder().ids(idArray).build();
@@ -82,10 +82,10 @@ public class EmployeeController {
     @Operation(summary = "启用/禁用")
     @PostMapping("/disable")
     @AuthResource(id = "employeeDisable", name = "启用/禁用员工", title = "启用/禁用", pId = "employeeManage", pName = "员工管理", sort = 99303, category = ResourceCategory.action,
-        actionCode = "disable")
+            actionCode = "disable")
     public ResponseResult<?> disable(@RequestBody @Validated DisableFieldReq disableFieldVO) {
         DisableActionParam<EmployeeReq> disableActionParam =
-            new DisableActionParam<EmployeeReq>(disableFieldVO).setIdField(EmployeeReq::getEmployeeId).setValueField(EmployeeReq::getForbiddenFlag).setTClass(EmployeeReq.class);
+                new DisableActionParam<EmployeeReq>(disableFieldVO).setIdField(EmployeeReq::getEmployeeId).setValueField(EmployeeReq::getForbiddenFlag).setTClass(EmployeeReq.class);
         List<EmployeeReq> list = DisableUtil.createObjListByDisableAction(disableActionParam);
         if (EmptyUtil.isEmpty(list)) {
             return RRBuilder.buildFailedBody("参数错误");

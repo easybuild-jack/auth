@@ -1,10 +1,10 @@
 package com.mcst.module.auth.api.request;
 
+import com.mcst.module.auth.api.param.DepartmentParam;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-import com.mcst.module.auth.api.param.DepartmentParam;
 
 /**
  * <p>

@@ -32,10 +32,11 @@
     <sql id="Employee_Base_Column_List">
         id
         ,
-            deleted,
-            insert_time,
-            last_update_time,
-        login_name, name, mobile, password, status, email, header_pic, department_id, department_name, position, shop_id, shop_name, roles, roles_name, work_status, platform, manage_area, type
+        deleted,
+        insert_time,
+        last_update_time,
+        login_name, name, mobile, password, status, email, header_pic, department_id, department_name, position,
+        shop_id, shop_name, roles, roles_name, work_status, platform, manage_area, type
     </sql>
 
 </mapper>

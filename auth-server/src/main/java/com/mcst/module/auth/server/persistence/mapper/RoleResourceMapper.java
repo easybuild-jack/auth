@@ -1,7 +1,7 @@
 package com.mcst.module.auth.server.persistence.mapper;
 
-import com.mcst.module.auth.server.persistence.model.RoleResource;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.mcst.module.auth.server.persistence.model.RoleResource;
 
 /**
  * <p>
