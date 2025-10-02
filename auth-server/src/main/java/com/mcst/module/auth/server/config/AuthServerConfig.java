@@ -8,17 +8,13 @@ import com.mcst.module.auth.server.impl.EmployeeApiServerImpl;
 import com.mcst.module.auth.server.impl.RoleApiServerImpl;
 import com.mcst.module.auth.server.properties.AuthProperties;
 import com.mcst.module.auth.server.properties.EmpPwdProperties;
-import com.mcst.module.auth.server.repository.IDepartmentRepository;
-import com.mcst.module.auth.server.repository.IEmployeeRepository;
-import com.mcst.module.auth.server.repository.IRoleRepository;
-import com.mcst.module.auth.server.repository.IRoleResourceRepository;
-import com.mcst.module.auth.server.repository.impl.DepartmentMybatisRepository;
-import com.mcst.module.auth.server.repository.impl.EmployeeMybatisRepository;
-import com.mcst.module.auth.server.repository.impl.RoleMybatisRepository;
-import com.mcst.module.auth.server.repository.impl.RoleResourceMybatisRepository;
+import com.mcst.module.auth.server.repository.*;
+import com.mcst.module.auth.server.repository.impl.*;
+import com.mcst.module.auth.server.service.IAuthResourceService;
 import com.mcst.module.auth.server.service.IDepartmentService;
 import com.mcst.module.auth.server.service.IEmployeeService;
 import com.mcst.module.auth.server.service.IRoleService;
+import com.mcst.module.auth.server.service.impl.AuthResourceServiceImpl;
 import com.mcst.module.auth.server.service.impl.DepartmentServiceImpl;
 import com.mcst.module.auth.server.service.impl.EmployeeServiceImpl;
 import com.mcst.module.auth.server.service.impl.RoleServiceImpl;
@@ -94,4 +90,18 @@ public class AuthServerConfig {
         return new DepartmentMybatisRepository();
     }
 
+    @Bean
+    @ConditionalOnMissingBean
+    public IAuthResourceRepository authResourceRepository() {
+        return new AuthResourceMybatisRepository();
+    }
+
+
+    @Bean
+    @ConditionalOnMissingBean
+    public IAuthResourceService authResourceService() {
+        return new AuthResourceServiceImpl();
+    }
 }
+
+
