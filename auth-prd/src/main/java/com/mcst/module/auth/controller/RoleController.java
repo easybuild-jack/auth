@@ -78,7 +78,7 @@ public class RoleController {
 
     @Operation(summary = "角色下拉列表数据接口")
     @GetMapping("/selectList")
-    public ResponseResult<List<RoleResp>> roleSelectList(@RequestParam(required = false) String name) {
+    public ResponseResult<List<RoleResp>> roleSelectList(@RequestParam(value = "name", required = false) String name) {
         RoleReq ex = new RoleReq();
         ex.setSupperStatus(0);
         SRPBuilder<RoleReq> requestParamBuilder = SRPBuilder.<RoleReq>builder().example(ex).selectFields(RoleReq::getRoleId, RoleReq::getRoleName, RoleReq::getForbiddenFlag);

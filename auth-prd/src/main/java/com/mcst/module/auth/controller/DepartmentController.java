@@ -86,7 +86,7 @@ public class DepartmentController {
 
     @Operation(summary = "部门下拉列表数据接口")
     @GetMapping("/selectList")
-    public ResponseResult<List<DepartmentResp>> departmentSelectList(@RequestParam(required = false) String name) {
+    public ResponseResult<List<DepartmentResp>> departmentSelectList(@RequestParam(value = "name", required = false) String name) {
         SRPBuilder<DepartmentReq> requestParamBuilder = SRPBuilder.<DepartmentReq>builder().selectFields(DepartmentReq::getDepartmentId, DepartmentReq::getDepartmentName, DepartmentReq::getForbiddenFlag);
         if (EmptyUtil.isNotEmpty(name)) {
             requestParamBuilder.likeFields(DepartmentReq::getDepartmentName);
