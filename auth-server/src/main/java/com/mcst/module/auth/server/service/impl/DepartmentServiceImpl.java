@@ -1,10 +1,10 @@
 package com.mcst.module.auth.server.service.impl;
 
 import com.mcst.easyfk.core.builders.BEBuilder;
+import com.mcst.easyfk.core.dto.login.UserData;
 import com.mcst.easyfk.core.dto.page.PageResult;
 import com.mcst.easyfk.core.dto.request.ModifyRequest;
 import com.mcst.easyfk.core.dto.request.SearchRequest;
-import com.mcst.easyfk.core.dto.request.UserData;
 import com.mcst.easyfk.core.dto.response.BaseResult;
 import com.mcst.easyfk.core.exception.ValidateException;
 import com.mcst.easyfk.core.utils.common.EmptyUtil;

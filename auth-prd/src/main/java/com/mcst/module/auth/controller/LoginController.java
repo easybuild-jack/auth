@@ -5,7 +5,7 @@ import com.mcst.easyfk.core.builders.RRBuilder;
 import com.mcst.easyfk.core.context.UserDataContext;
 import com.mcst.easyfk.core.dto.login.LoginResult;
 import com.mcst.easyfk.core.dto.login.LoginUser;
-import com.mcst.easyfk.core.dto.request.UserData;
+import com.mcst.easyfk.core.dto.login.UserData;
 import com.mcst.easyfk.core.dto.response.ResponseResult;
 import com.mcst.easyfk.core.utils.common.EmptyUtil;
 import com.mcst.easyfk.web.base.manager.JwtManager;
@@ -74,7 +74,7 @@ public class LoginController {
     @PostMapping("/editPwd")
     public ResponseResult<?> editPwd(@RequestBody @Validated ChangePwdVO changePwdVO) {
         UserData loginUser = UserDataContext.getUserData();
-        changePwdVO.setEmployeeId(loginUser.getEmployeeId());
+        changePwdVO.setEmployeeId(loginUser.getUserId());
         return RRBuilder.buildBodyByBaseResult(this.employeeApi.updateEmployeePwd(changePwdVO));
     }
 

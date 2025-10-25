@@ -4,7 +4,7 @@ import com.mcst.easyfk.authority.annotation.LoginResource;
 import com.mcst.easyfk.authority.vo.UserAuthResources;
 import com.mcst.easyfk.core.builders.RRBuilder;
 import com.mcst.easyfk.core.context.UserDataContext;
-import com.mcst.easyfk.core.dto.request.UserData;
+import com.mcst.easyfk.core.dto.login.UserData;
 import com.mcst.easyfk.core.dto.response.ResponseResult;
 import com.mcst.module.auth.api.IEmployeeApi;
 import io.swagger.v3.oas.annotations.Operation;
@@ -32,7 +32,7 @@ public class ResourceController {
     @LoginResource
     public ResponseResult<List<UserAuthResources>> getUserAuthResources() {
         UserData loginUser = UserDataContext.getUserData();
-        List<UserAuthResources> list = this.employeeApi.queryEmployeeResource(loginUser.getCachedKey());
+        List<UserAuthResources> list = this.employeeApi.queryEmployeeResource(loginUser.getAuthCachedKey());
         return RRBuilder.buildSuccessBody(list);
     }
 

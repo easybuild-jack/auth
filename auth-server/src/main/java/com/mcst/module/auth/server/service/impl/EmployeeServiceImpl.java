@@ -8,7 +8,7 @@ import cn.hutool.crypto.SecureUtil;
 import com.mcst.easyfk.authority.dto.AuthResourceDto;
 import com.mcst.easyfk.authority.enums.AccountTypeEnum;
 import com.mcst.easyfk.authority.enums.ResourceCategory;
-import com.mcst.easyfk.authority.manager.UserAuthManager;
+import com.mcst.easyfk.authority.manager.UserDataManager;
 import com.mcst.easyfk.authority.response.AuthResourceResp;
 import com.mcst.easyfk.authority.vo.UserAuth;
 import com.mcst.easyfk.authority.vo.UserAuthResources;
@@ -16,10 +16,10 @@ import com.mcst.easyfk.core.builders.BEBuilder;
 import com.mcst.easyfk.core.constants.CharacterConstant;
 import com.mcst.easyfk.core.dto.login.LoginResult;
 import com.mcst.easyfk.core.dto.login.LoginUser;
+import com.mcst.easyfk.core.dto.login.UserData;
 import com.mcst.easyfk.core.dto.page.PageResult;
 import com.mcst.easyfk.core.dto.request.ModifyRequest;
 import com.mcst.easyfk.core.dto.request.SearchRequest;
-import com.mcst.easyfk.core.dto.request.UserData;
 import com.mcst.easyfk.core.dto.response.BaseResult;
 import com.mcst.easyfk.core.function.FunctionExecutor;
 import com.mcst.easyfk.core.utils.common.EmptyUtil;
@@ -69,7 +69,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
     private IRoleResourceRepository roleResourceRepository;
 
     @Resource
-    private UserAuthManager userAuthManager;
+    private UserDataManager userDataManager;
 
     @Resource
     private EmpPwdProperties empPwdProperties;
@@ -212,7 +212,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
     @Override
     public List<UserAuthResources> queryEmployeeResource(String cacheKey) {
         List<UserAuthResources> result = new ArrayList<>();
-        UserAuth userAuth = this.userAuthManager.getUserAuth(cacheKey);
+        UserAuth userAuth = this.userDataManager.getUserAuth(cacheKey);
         List<AuthResourceDto> resources = userAuth.getResources();
         if (EmptyUtil.isNotEmpty(resources)) {
             for (AuthResourceDto resource : resources) {
@@ -228,7 +228,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
     @Override
     public BaseResult<?> loginOut() {
-        return this.userAuthManager.loginOut();
+        return this.userDataManager.loginOut();
     }
 
     @Override
@@ -263,8 +263,9 @@ public class EmployeeServiceImpl implements IEmployeeService {
         if (EmptyUtil.isNotEmpty(employee.getForbiddenFlag()) && employee.getForbiddenFlag() == 1) {
             throw BEBuilder.exceptionByI18n("AccountDisabled", AuthEnum.I18N_PATH.getCode());
         }
-        UserAuth userAuth = new UserAuth().setAccountType(AccountTypeEnum.System.getValue()).setType(employee.getType()).setSaasId(employee.getSaasId()).setOrgId(employee.getOrgId()).setDepartmentId(employee.getDepartmentId()).setDepartmentName(employee.getDepartmentName()).setOrgCode(employee.getOrgCode()).setExtendInfo(employee.getExtendInfo()).setWorkAreaId(employee.getWorkAreaId()).setManageArea(employee.getManageArea()).setManageAreaId(employee.getManageAreaId()).setWorkArea(employee.getWorkArea());
-        LoginUser loginUser = new LoginUser().setAccountType(AccountTypeEnum.System.getValue()).setName(employee.getEmployeeName()).setUserId(employee.getEmployeeId()).setCode(employee.getLoginName()).setType(employee.getType());
+        UserAuth userAuth = new UserAuth();
+        UserData userData = new UserData().setAccountType(AccountTypeEnum.System.getValue()).setType(employee.getType()).setUserId(employee.getEmployeeId()).setSaasId(employee.getSaasId()).setOrgId(employee.getOrgId()).setDepartmentId(employee.getDepartmentId());
+        LoginUser loginUser = new LoginUser();
         Map<String, AuthResourceDto> map = new LinkedHashMap<>();
         List<AuthResourceDto> resources = CollUtil.newArrayList();
         List<RoleDto> roles = CollUtil.newArrayList();
@@ -282,7 +283,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
                 }
             }
             if (EmptyUtil.isNotEmpty(bizType)) {
-                userAuth.setBizType(bizType);
+                userData.setBizType(bizType);
                 employee.setBizType(String.join(CharacterConstant.COMMA_DELIMITERS, bizType));
             }
             this.employeeRepository.updateBySelective(employee, "bizType");
@@ -325,8 +326,11 @@ public class EmployeeServiceImpl implements IEmployeeService {
                 userAuth.setUrls(urls);
             }
         }
-        String cacheKey = this.userAuthManager.cacheUserAuth(userAuth).getData();
-        loginUser.setCachedKey(cacheKey);
+        String authCachedKey = this.userDataManager.cacheUserAuth(userAuth).getData();
+        loginUser.setAuthCachedKey(authCachedKey);
+        String dataCachedKey = this.userDataManager.cacheUserData(userData).getData();
+        loginUser.setDataCachedKey(dataCachedKey);
+        loginUser.setName(Optional.ofNullable(employee.getEmployeeName()).orElse(employee.getLoginName()));
         return new LoginResult(loginUser).setHeadImage(employee.getHeaderPic());
     }
 
