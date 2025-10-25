@@ -32,7 +32,7 @@ import java.util.List;
 @Tag(name = "员工相关接口", description = "员工相关接口")
 @RestController
 @RequestMapping("/api/auth/employee")
-@ResourceController(group = "systemSetting", id = "systemSetting", name = "系统设置", sort = 99000, path = "/system")
+@ResourceController(group = "authManage", id = "authManage", name = "权限管理", sort = 99000, path = "/auth")
 public class EmployeeController {
     @Resource
     private IEmployeeApi employeeApi;
@@ -48,7 +48,7 @@ public class EmployeeController {
 
     @Operation(summary = "分页查询")
     @GetMapping("/queryPage")
-    @AuthResource(id = "employeeManage", name = "员工管理", pId = "systemSetting", pName = "系统设置", sort = 99300, path = "/system/employee", category = ResourceCategory.menu)
+    @AuthResource(id = "employeeManage", name = "员工管理", pId = "authManage", pName = "权限管理", sort = 99300, path = "/auth/employee", category = ResourceCategory.menu)
     public ResponseResult<List<EmployeeResp>> queryPage(@Validated EmployeeReq employeeParam) {
         SRPBuilder<EmployeeReq> builder = SRPBuilder.<EmployeeReq>builder().example(employeeParam);
         if (EmptyUtil.isNotEmpty(employeeParam.getSearchKeyWord())) {

@@ -32,7 +32,7 @@ import java.util.List;
 @Tag(name = "部门相关接口", description = "部门相关接口")
 @RestController
 @RequestMapping("/api/auth/department")
-@ResourceController(group = "systemSetting", id = "systemSetting", name = "系统设置", sort = 99000, path = "/system")
+@ResourceController(group = "authManage", id = "authManage", name = "权限管理", sort = 99000, path = "/auth")
 public class DepartmentController {
     @Resource
     private IDepartmentApi departmentApi;
@@ -45,7 +45,7 @@ public class DepartmentController {
 
     @Operation(summary = "分页查询")
     @GetMapping("/queryPage")
-    @AuthResource(id = "departmentManage", name = "部门管理", pId = "systemSetting", pName = "系统设置", sort = 99100, path = "/system/department", category = ResourceCategory.menu)
+    @AuthResource(id = "departmentManage", name = "部门管理", pId = "authManage", pName = "权限管理", sort = 99100, path = "/auth/department", category = ResourceCategory.menu)
     public ResponseResult<List<DepartmentResp>> queryPage(@Validated DepartmentReq departmentParam) {
         SRPBuilder<DepartmentReq> requestParamBuilder = SRPBuilder.<DepartmentReq>builder().example(departmentParam);
         if (EmptyUtil.isNotEmpty(departmentParam.getDepartmentName())) {

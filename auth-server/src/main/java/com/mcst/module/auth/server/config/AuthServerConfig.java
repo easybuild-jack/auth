@@ -1,8 +1,10 @@
 package com.mcst.module.auth.server.config;
 
+import com.mcst.easyfk.authority.IAuthResourceApi;
 import com.mcst.module.auth.api.IDepartmentApi;
 import com.mcst.module.auth.api.IEmployeeApi;
 import com.mcst.module.auth.api.IRoleApi;
+import com.mcst.module.auth.server.impl.AuthResourceApiServerImpl;
 import com.mcst.module.auth.server.impl.DepartmentApiServerImpl;
 import com.mcst.module.auth.server.impl.EmployeeApiServerImpl;
 import com.mcst.module.auth.server.impl.RoleApiServerImpl;
@@ -101,6 +103,13 @@ public class AuthServerConfig {
     @ConditionalOnMissingBean
     public IAuthResourceService authResourceService() {
         return new AuthResourceServiceImpl();
+    }
+
+
+    @Bean
+    @ConditionalOnMissingBean
+    public IAuthResourceApi authResourceApi() {
+        return new AuthResourceApiServerImpl();
     }
 }
 

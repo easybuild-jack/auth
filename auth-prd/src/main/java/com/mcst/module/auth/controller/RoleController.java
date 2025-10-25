@@ -34,7 +34,7 @@ import java.util.List;
 @Tag(name = "角色相关接口")
 @RestController
 @RequestMapping("/api/auth/role")
-@ResourceController(group = "systemSetting", id = "systemSetting", name = "系统设置", path = "/system", sort = 99000)
+@ResourceController(group = "authManage", id = "authManage", name = "权限管理", path = "/auth", sort = 99000)
 public class RoleController {
     @Resource
     private IRoleApi roleApi;
@@ -50,7 +50,7 @@ public class RoleController {
 
     @Operation(summary = "分页查询")
     @GetMapping("/queryPage")
-    @AuthResource(id = "roleManage", name = "角色管理", pId = "systemSetting", pName = "系统设置", sort = 99200, path = "/system/role", category = ResourceCategory.menu)
+    @AuthResource(id = "roleManage", name = "角色管理", pId = "authManage", pName = "权限管理", sort = 99200, path = "/auth/role", category = ResourceCategory.menu)
     public ResponseResult<List<RoleResp>> queryPage(@Validated RoleReq roleParam) {
         SRPBuilder<RoleReq> requestParamBuilder = SRPBuilder.<RoleReq>builder().example(roleParam);
         if (EmptyUtil.isNotEmpty(roleParam.getRoleName())) {
