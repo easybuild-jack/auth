@@ -24,7 +24,6 @@ import java.time.LocalDateTime;
 @Schema(description = "员工信息数据对象")
 public class EmployeeDto extends BaseDto {
 
-
     /**
      * 员工ID
      */
@@ -130,30 +129,6 @@ public class EmployeeDto extends BaseDto {
     private String extendInfo;
 
     /**
-     * 管理厂区
-     */
-    @Schema(description = "管理厂区")
-    private String manageArea;
-
-    /**
-     * 管理厂区ID
-     */
-    @Schema(description = "管理厂区ID")
-    private String manageAreaId;
-
-    /**
-     * 工作厂区
-     */
-    @Schema(description = "工作厂区")
-    private String workArea;
-
-    /**
-     * 工作厂区ID
-     */
-    @Schema(description = "工作厂区ID")
-    private String workAreaId;
-
-    /**
      * 业务类型
      */
     @Schema(description = "业务类型")
@@ -172,15 +147,9 @@ public class EmployeeDto extends BaseDto {
     private String orgName;
 
     /**
-     * 组织编号
+     * 账号类型
      */
-    @Schema(description = "组织编号")
-    private String orgCode;
-
-    /**
-     * 类型
-     */
-    @Schema(description = "类型")
+    @Schema(description = "账号类型")
     private String type;
 
     /**

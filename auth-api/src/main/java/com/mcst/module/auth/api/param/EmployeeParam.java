@@ -1,5 +1,7 @@
 package com.mcst.module.auth.api.param;
 
+import com.mcst.easyfk.core.annotation.PrimaryKey;
+import com.mcst.easyfk.core.annotation.SingleUniqueField;
 import com.mcst.easyfk.core.dto.request.BasicParam;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -26,12 +28,14 @@ public class EmployeeParam extends BasicParam {
     /**
      * 员工ID
      */
+    @PrimaryKey
     @Schema(description = "员工ID")
     private String employeeId;
 
     /**
      * 登录账户
      */
+    @SingleUniqueField(repetitionMsg = "登录账户不可重复")
     @Schema(description = "登录账户")
     private String loginName;
 
@@ -126,30 +130,6 @@ public class EmployeeParam extends BasicParam {
     private String extendInfo;
 
     /**
-     * 管理厂区
-     */
-    @Schema(description = "管理厂区")
-    private String manageArea;
-
-    /**
-     * 管理厂区ID
-     */
-    @Schema(description = "管理厂区ID")
-    private String manageAreaId;
-
-    /**
-     * 工作厂区
-     */
-    @Schema(description = "工作厂区")
-    private String workArea;
-
-    /**
-     * 工作厂区ID
-     */
-    @Schema(description = "工作厂区ID")
-    private String workAreaId;
-
-    /**
      * 业务类型
      */
     @Schema(description = "业务类型")
@@ -168,15 +148,9 @@ public class EmployeeParam extends BasicParam {
     private String orgName;
 
     /**
-     * 组织编号
+     * 账号类型
      */
-    @Schema(description = "组织编号")
-    private String orgCode;
-
-    /**
-     * 类型
-     */
-    @Schema(description = "类型")
+    @Schema(description = "账号类型")
     private String type;
 
     /**
