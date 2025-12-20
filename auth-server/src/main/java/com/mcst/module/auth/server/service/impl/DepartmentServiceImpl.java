@@ -48,7 +48,7 @@ public class DepartmentServiceImpl implements IDepartmentService {
     @Override
     public List<DepartmentResp> queryList(SearchRequest<DepartmentReq> param) {
         UserDataFiltrationUtil.saasDataFiltration(param, DepartmentReq.class, DepartmentReq::getSaasId, UserData::getSaasId);
-        return TransformUtil.transformListByStream(this.departmentRepository.queryByCondition(ConditionUtil.conditionByRequest(param)), DepartmentResp.class);
+        return TransformUtil.transformList(this.departmentRepository.queryByCondition(ConditionUtil.conditionByRequest(param)), DepartmentResp.class);
     }
 
     @Override

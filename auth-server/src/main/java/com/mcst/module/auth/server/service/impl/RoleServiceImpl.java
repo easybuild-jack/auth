@@ -81,7 +81,7 @@ public class RoleServiceImpl implements IRoleService, InitializingBean {
     @Override
     public List<RoleResp> queryList(SearchRequest<RoleReq> param) {
         UserDataFiltrationUtil.saasDataFiltration(param, RoleReq.class, RoleReq::getSaasId, UserData::getSaasId);
-        return TransformUtil.transformListByStream(this.roleRepository.queryByCondition(ConditionUtil.conditionByRequest(param)), RoleResp.class);
+        return TransformUtil.transformList(this.roleRepository.queryByCondition(ConditionUtil.conditionByRequest(param)), RoleResp.class);
     }
 
     @Override
@@ -177,7 +177,7 @@ public class RoleServiceImpl implements IRoleService, InitializingBean {
     public List<RoleResp> getAllSubRolesByParentId(String parentId) {
         List<RoleDto> roles = CollUtil.newArrayList();
         this.getSubRoleByParentId(parentId, roles);
-        return TransformUtil.transformListByStream(roles, RoleResp.class);
+        return TransformUtil.transformList(roles, RoleResp.class);
     }
 
     @Override
@@ -190,7 +190,7 @@ public class RoleServiceImpl implements IRoleService, InitializingBean {
                 list.addAll(this.getAllSubRolesByParentId(roleId));
             }
         }
-        return TransformUtil.transformListByStream(list, RoleResp.class);
+        return TransformUtil.transformList(list, RoleResp.class);
     }
 
     @Override

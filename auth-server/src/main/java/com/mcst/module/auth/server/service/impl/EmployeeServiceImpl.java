@@ -86,7 +86,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
     @Override
     public List<EmployeeResp> queryList(SearchRequest<EmployeeReq> param) {
         UserDataFiltrationUtil.saasDataFiltration(param, EmployeeReq.class, EmployeeReq::getSaasId, UserData::getSaasId);
-        return TransformUtil.transformListByStream(this.employeeRepository.queryByCondition(ConditionUtil.conditionByRequest(param)), EmployeeResp.class);
+        return TransformUtil.transformList(this.employeeRepository.queryByCondition(ConditionUtil.conditionByRequest(param)), EmployeeResp.class);
     }
 
     @Override

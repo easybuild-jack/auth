@@ -45,7 +45,7 @@ public class AuthResourceServiceImpl implements IAuthResourceService {
 
     @Override
     public List<AuthResourceResp> queryList(SearchRequest<AuthResourceReq> param) {
-        return TransformUtil.transformListParallel(resourceRepository.queryByCondition(ConditionUtil.conditionByRequest(param)), AuthResourceResp.class);
+        return TransformUtil.transformList(resourceRepository.queryByCondition(ConditionUtil.conditionByRequest(param)), AuthResourceResp.class);
     }
 
     @Override
@@ -88,7 +88,7 @@ public class AuthResourceServiceImpl implements IAuthResourceService {
     @Override
     public ResponseResult<List<AuthResourceResp>> authorityResourceList() {
         SearchCondition condition = SCBuilder.<AuthResourceDto>builder().equalsConditions("resourceLevel", 2).build();
-        List<AuthResourceResp> list = TransformUtil.transformListParallel(this.resourceRepository.queryByCondition(condition), AuthResourceResp.class);
+        List<AuthResourceResp> list = TransformUtil.transformList(this.resourceRepository.queryByCondition(condition), AuthResourceResp.class);
         return RRBuilder.buildSuccessListBody(list);
     }
 
@@ -102,7 +102,7 @@ public class AuthResourceServiceImpl implements IAuthResourceService {
     public List<AuthResourceResp> getAllPlatformAuthResources() {
         List<String> typeFlags = Arrays.asList("all", "system");
         SearchCondition searchCondition = SCBuilder.<AuthResourceDto>builder().inCondition(AuthResourceDto::getTypeFlag, typeFlags).equalsConditions("resourceLevel", 2).ascFields("sort").condition();
-        return TransformUtil.transformListParallel(this.resourceRepository.queryByCondition(searchCondition), AuthResourceResp.class);
+        return TransformUtil.transformList(this.resourceRepository.queryByCondition(searchCondition), AuthResourceResp.class);
     }
 
     /**
@@ -118,23 +118,23 @@ public class AuthResourceServiceImpl implements IAuthResourceService {
         if (defaultStatus == 1) {
             searchConditionBuilder.likeConditions("defaultType", type);
         }
-        return TransformUtil.transformListParallel(this.resourceRepository.queryByCondition(searchConditionBuilder.condition()), AuthResourceResp.class);
+        return TransformUtil.transformList(this.resourceRepository.queryByCondition(searchConditionBuilder.condition()), AuthResourceResp.class);
     }
 
     @Override
     public List<AuthResourceResp> getAllSaasAuthResources() {
         SearchCondition searchCondition = SCBuilder.<AuthResourceDto>builder().equalsConditions("saasStatus", 1).equalsConditions("resourceLevel", 2).ascFields("sort").condition();
-        return TransformUtil.transformListParallel(this.resourceRepository.queryByCondition(searchCondition), AuthResourceResp.class);
+        return TransformUtil.transformList(this.resourceRepository.queryByCondition(searchCondition), AuthResourceResp.class);
     }
 
     @Override
     public List<AuthResourceResp> getAllSaasDefaultAuthResources() {
         SearchCondition searchCondition = SCBuilder.<AuthResourceDto>builder().equalsConditions("saasDefault", 1).equalsConditions("saasStatus", 1).equalsConditions("resourceLevel", 2).ascFields("sort").condition();
-        return TransformUtil.transformListParallel(this.resourceRepository.queryByCondition(searchCondition), AuthResourceResp.class);
+        return TransformUtil.transformList(this.resourceRepository.queryByCondition(searchCondition), AuthResourceResp.class);
     }
 
     @Override
     public void saveResourceByBath(List<AuthResourceReq> list) {
-        this.resourceRepository.insertBatch(TransformUtil.jsonTransformList(list, AuthResourceDto.class));
+        this.resourceRepository.insertBatch(TransformUtil.transformList(list, AuthResourceDto.class));
     }
 }

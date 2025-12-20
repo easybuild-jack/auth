@@ -1,6 +1,8 @@
 package com.mcst.module.auth.api.param;
 
 import com.mcst.easyfk.core.dto.request.BasicParam;
+import com.mcst.module.auth.api.request.RoleReq;
+import io.github.linpeilie.annotations.AutoMapper;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,6 +20,7 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @Schema(description = "角色数据参数对象")
+@AutoMapper(target = RoleReq.class)
 public class RoleParam extends BasicParam {
 
 

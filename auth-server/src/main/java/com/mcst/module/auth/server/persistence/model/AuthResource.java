@@ -3,8 +3,10 @@ package com.mcst.module.auth.server.persistence.model;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.mcst.easyfk.authority.dto.AuthResourceDto;
 import com.mcst.easyfk.core.annotation.PrimaryKey;
 import com.mcst.easyfk.service.mybatisplus.persistence.BaseMyBatisPlusEntity;
+import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -16,6 +18,7 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @TableName("auth_resource")
+@AutoMapper(target = AuthResourceDto.class)
 public class AuthResource extends BaseMyBatisPlusEntity<AuthResource> {
 
     @TableId(type = IdType.ASSIGN_UUID)

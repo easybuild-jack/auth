@@ -3,6 +3,10 @@ package com.mcst.module.auth.api.dto;
 import com.mcst.easyfk.core.annotation.PrimaryKey;
 import com.mcst.easyfk.core.annotation.SingleUniqueField;
 import com.mcst.easyfk.core.dto.BaseDto;
+import com.mcst.module.auth.api.request.DepartmentEditReq;
+import com.mcst.module.auth.api.response.DepartmentResp;
+import io.github.linpeilie.annotations.AutoMapper;
+import io.github.linpeilie.annotations.AutoMappers;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,6 +24,7 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @Schema(description = "部门数据对象")
+@AutoMappers({@AutoMapper(target = DepartmentResp.class), @AutoMapper(target = DepartmentEditReq.class)})
 public class DepartmentDto extends BaseDto {
 
 

@@ -3,6 +3,12 @@ package com.mcst.module.auth.api.dto;
 import com.mcst.easyfk.core.annotation.PrimaryKey;
 import com.mcst.easyfk.core.annotation.SingleUniqueField;
 import com.mcst.easyfk.core.dto.BaseDto;
+import com.mcst.module.auth.api.param.EmployeeParam;
+import com.mcst.module.auth.api.request.EmployeeEditReq;
+import com.mcst.module.auth.api.request.EmployeeReq;
+import com.mcst.module.auth.api.response.EmployeeResp;
+import io.github.linpeilie.annotations.AutoMapper;
+import io.github.linpeilie.annotations.AutoMappers;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -22,6 +28,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @Schema(description = "员工信息数据对象")
+@AutoMappers({@AutoMapper(target = EmployeeResp.class), @AutoMapper(target = EmployeeEditReq.class)})
 public class EmployeeDto extends BaseDto {
 
     /**
