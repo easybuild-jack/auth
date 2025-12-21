@@ -7,9 +7,7 @@ import com.mcst.easyfk.core.annotation.PrimaryKey;
 import com.mcst.easyfk.core.annotation.SingleUniqueField;
 import com.mcst.easyfk.service.mybatisplus.persistence.BaseMyBatisPlusEntity;
 import com.mcst.module.auth.api.dto.DepartmentDto;
-import com.mcst.module.auth.api.param.DepartmentParam;
 import io.github.linpeilie.annotations.AutoMapper;
-import io.github.linpeilie.annotations.AutoMappers;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -25,7 +23,7 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @TableName("auth_department")
-@AutoMappers({@AutoMapper(target = DepartmentDto.class), @AutoMapper(target = DepartmentParam.class)})
+@AutoMapper(target = DepartmentDto.class)
 public class Department extends BaseMyBatisPlusEntity<Department> {
 
     @PrimaryKey

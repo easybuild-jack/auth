@@ -1,6 +1,8 @@
 package com.mcst.module.auth.api.request;
 
+import com.mcst.module.auth.api.dto.EmployeeDto;
 import com.mcst.module.auth.api.param.EmployeeParam;
+import io.github.linpeilie.annotations.AutoMapper;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,6 +20,7 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @Schema(description = "员工信息数据请求对象")
+@AutoMapper(target = EmployeeDto.class)
 public class EmployeeReq extends EmployeeParam {
 
 }

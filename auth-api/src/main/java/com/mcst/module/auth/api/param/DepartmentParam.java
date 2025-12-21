@@ -1,8 +1,6 @@
 package com.mcst.module.auth.api.param;
 
 import com.mcst.easyfk.core.dto.request.BasicParam;
-import com.mcst.module.auth.api.request.DepartmentReq;
-import io.github.linpeilie.annotations.AutoMapper;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,9 +18,7 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @Schema(description = "部门数据参数对象")
-@AutoMapper(target = DepartmentReq.class)
 public class DepartmentParam extends BasicParam {
-
 
     /**
      * 部门ID
@@ -65,6 +61,5 @@ public class DepartmentParam extends BasicParam {
      */
     @Schema(description = "平台类型")
     private String type;
-
 
 }

@@ -3,8 +3,6 @@ package com.mcst.module.auth.api.param;
 import com.mcst.easyfk.core.annotation.PrimaryKey;
 import com.mcst.easyfk.core.annotation.SingleUniqueField;
 import com.mcst.easyfk.core.dto.request.BasicParam;
-import com.mcst.module.auth.api.request.EmployeeReq;
-import io.github.linpeilie.annotations.AutoMapper;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -24,9 +22,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @Schema(description = "员工信息数据参数对象")
-@AutoMapper(target = EmployeeReq.class)
 public class EmployeeParam extends BasicParam {
-
 
     /**
      * 员工ID
@@ -161,6 +157,5 @@ public class EmployeeParam extends BasicParam {
      */
     @Schema(description = "最后更新密码时间")
     private LocalDateTime lastUpdatePwd;
-
 
 }

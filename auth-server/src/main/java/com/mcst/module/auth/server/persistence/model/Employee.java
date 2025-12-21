@@ -5,9 +5,7 @@ import com.mcst.easyfk.core.annotation.PrimaryKey;
 import com.mcst.easyfk.core.annotation.SingleUniqueField;
 import com.mcst.easyfk.service.mybatisplus.persistence.BaseMyBatisPlusEntity;
 import com.mcst.module.auth.api.dto.EmployeeDto;
-import com.mcst.module.auth.api.param.EmployeeParam;
 import io.github.linpeilie.annotations.AutoMapper;
-import io.github.linpeilie.annotations.AutoMappers;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -25,7 +23,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @TableName("auth_employee")
-@AutoMappers({@AutoMapper(target = EmployeeDto.class), @AutoMapper(target = EmployeeParam.class)})
+@AutoMapper(target = EmployeeDto.class)
 public class Employee extends BaseMyBatisPlusEntity<Employee> {
 
     @PrimaryKey

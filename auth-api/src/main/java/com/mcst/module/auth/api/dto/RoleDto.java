@@ -3,10 +3,8 @@ package com.mcst.module.auth.api.dto;
 import com.mcst.easyfk.core.annotation.PrimaryKey;
 import com.mcst.easyfk.core.annotation.SingleUniqueField;
 import com.mcst.easyfk.core.dto.BaseDto;
-import com.mcst.module.auth.api.request.RoleEditReq;
 import com.mcst.module.auth.api.response.RoleResp;
 import io.github.linpeilie.annotations.AutoMapper;
-import io.github.linpeilie.annotations.AutoMappers;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -24,9 +22,8 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @Schema(description = "角色数据对象")
-@AutoMappers({@AutoMapper(target = RoleResp.class), @AutoMapper(target = RoleEditReq.class)})
+@AutoMapper(target = RoleResp.class)
 public class RoleDto extends BaseDto {
-
 
     /**
      * 角色ID
@@ -95,6 +92,5 @@ public class RoleDto extends BaseDto {
      */
     @Schema(description = "业务类型")
     private String bizType;
-
 
 }

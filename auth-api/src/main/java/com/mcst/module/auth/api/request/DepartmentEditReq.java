@@ -1,6 +1,7 @@
 package com.mcst.module.auth.api.request;
 
 import com.mcst.module.auth.api.dto.DepartmentDto;
+import io.github.linpeilie.annotations.AutoMapper;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,7 +19,7 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @Schema(description = "部门数据编辑对象")
+@AutoMapper(target = DepartmentReq.class)
 public class DepartmentEditReq extends DepartmentDto {
-
 
 }

@@ -7,9 +7,7 @@ import com.mcst.easyfk.core.annotation.PrimaryKey;
 import com.mcst.easyfk.core.annotation.SingleUniqueField;
 import com.mcst.easyfk.service.mybatisplus.persistence.BaseMyBatisPlusEntity;
 import com.mcst.module.auth.api.dto.RoleDto;
-import com.mcst.module.auth.api.param.RoleParam;
 import io.github.linpeilie.annotations.AutoMapper;
-import io.github.linpeilie.annotations.AutoMappers;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -25,7 +23,7 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @TableName("auth_role")
-@AutoMappers({@AutoMapper(target = RoleDto.class), @AutoMapper(target = RoleParam.class)})
+@AutoMapper(target = RoleDto.class)
 public class Role extends BaseMyBatisPlusEntity<Role> {
 
     @PrimaryKey
