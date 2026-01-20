@@ -76,16 +76,28 @@ public class RoleDto extends BaseDto {
     private String type;
 
     /**
-     * 所属SaasID
+     * 所属代理商ID
      */
-    @Schema(description = "所属SaasID")
-    private String saasId;
+    @Schema(description = "所属代理商ID")
+    private String agentId;
 
     /**
-     * 所属Saas名称
+     * 所属代理商名称
      */
-    @Schema(description = "所属Saas名称")
-    private String saasName;
+    @Schema(description = "所属代理商名称")
+    private String agentName;
+
+    /**
+     * 所属商户ID
+     */
+    @Schema(description = "所属商户ID")
+    private String merchantId;
+
+    /**
+     * 所属商户名称
+     */
+    @Schema(description = "所属商户名称")
+    private String merchantName;
 
     /**
      * 业务类型

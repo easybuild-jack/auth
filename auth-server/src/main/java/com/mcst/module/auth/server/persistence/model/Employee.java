@@ -87,14 +87,24 @@ public class Employee extends BaseMyBatisPlusEntity<Employee> {
     private String position;
 
     /**
-     * 所属SaasID
+     * 所属代理商ID
      */
-    private String saasId;
+    private String agentId;
 
     /**
-     * 所属Saas名称
+     * 所属代理商名称
      */
-    private String saasName;
+    private String agentName;
+
+    /**
+     * 所属商户ID
+     */
+    private String merchantId;
+
+    /**
+     * 所属商户名称
+     */
+    private String merchantName;
 
     /**
      * 角色ID
@@ -121,7 +131,7 @@ public class Employee extends BaseMyBatisPlusEntity<Employee> {
     private String orgName;
 
     /**
-     * 账号类型
+     * 类型
      */
     private String type;
 

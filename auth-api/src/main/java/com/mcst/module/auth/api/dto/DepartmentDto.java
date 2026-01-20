@@ -52,16 +52,28 @@ public class DepartmentDto extends BaseDto {
     private Integer forbiddenFlag;
 
     /**
-     * SaasId
+     * 所属代理商ID
      */
-    @Schema(description = "SaasId")
-    private String saasId;
+    @Schema(description = "所属代理商ID")
+    private String agentId;
 
     /**
-     * Saas名称
+     * 所属代理商名称
      */
-    @Schema(description = "Saas名称")
-    private String saasName;
+    @Schema(description = "所属代理商名称")
+    private String agentName;
+
+    /**
+     * 所属商户ID
+     */
+    @Schema(description = "所属商户ID")
+    private String merchantId;
+
+    /**
+     * 所属商户名称
+     */
+    @Schema(description = "所属商户名称")
+    private String merchantName;
 
     /**
      * 平台类型

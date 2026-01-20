@@ -47,13 +47,21 @@ public class Department extends BaseMyBatisPlusEntity<Department> {
     private Integer forbiddenFlag;
 
     /**
-     * SaasId
+     * 所属代理商ID
      */
-    private String saasId;
+    private String agentId;
     /**
-     * Saas名称
+     * 所属代理商名称
      */
-    private String saasName;
+    private String agentName;
+    /**
+     * 所属商户ID
+     */
+    private String merchantId;
+    /**
+     * 所属商户名称
+     */
+    private String merchantName;
     /**
      * 平台类型
      */

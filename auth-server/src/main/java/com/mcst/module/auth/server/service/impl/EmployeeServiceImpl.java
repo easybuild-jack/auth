@@ -85,7 +85,10 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
     @Override
     public List<EmployeeResp> queryList(SearchRequest<EmployeeReq> param) {
-        UserDataFiltrationUtil.saasDataFiltration(param, EmployeeReq.class, EmployeeReq::getSaasId, UserData::getSaasId);
+        UserDataFiltrationUtil.saasDataFiltration(param, EmployeeReq.class, Map.of(
+            EmployeeReq::getAgentId, UserData::getAgentId,
+            EmployeeReq::getMerchantId, UserData::getMerchantId
+        ));
         return TransformUtil.transformList(this.employeeRepository.queryByCondition(ConditionUtil.conditionByRequest(param)), EmployeeResp.class);
     }
 
@@ -124,7 +127,10 @@ public class EmployeeServiceImpl implements IEmployeeService {
             employeeDTO.setLoginName("dev");
             condition.setNotFields(ArrayUtil.addAll(condition.getNotFields(), new String[]{"loginName"}));
         }
-        UserDataFiltrationUtil.saasDataFiltration(condition, EmployeeReq.class, EmployeeReq::getSaasId, UserData::getSaasId);
+        UserDataFiltrationUtil.saasDataFiltration(condition, EmployeeReq.class, Map.of(
+            EmployeeReq::getAgentId, UserData::getAgentId,
+            EmployeeReq::getMerchantId, UserData::getMerchantId
+        ));
         SCBuilder<EmployeeDto> SCBuilder = new SCBuilder<>(ConditionUtil.conditionByRequest(condition));
         return TransformUtil.transformPageResult(this.employeeRepository.queryByPage(SCBuilder.build()), EmployeeResp.class);
     }
@@ -132,7 +138,12 @@ public class EmployeeServiceImpl implements IEmployeeService {
     @Override
     public BaseResult<?> save(ModifyRequest<EmployeeReq> param) {
         EmployeeReq employee = param.getParmaObj();
-        UserDataFiltrationUtil.setSaasData(param, EmployeeReq::getSaasId, UserData::getSaasId);
+        UserDataFiltrationUtil.setSaasData(param, Map.of(
+            EmployeeReq::getAgentId, UserData::getAgentId,
+            EmployeeReq::getAgentName, UserData::getAgentName,
+            EmployeeReq::getMerchantId, UserData::getMerchantId,
+            EmployeeReq::getMerchantName, UserData::getMerchantName
+        ));
         if (EmptyUtil.isNotEmpty(employee)) {
             if (EmptyUtil.isEmpty(employee.getEmployeeId())) {
                 employee.setLastUpdatePwd(LocalDateTime.now());
@@ -264,7 +275,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
             throw BEBuilder.exceptionByI18n("AccountDisabled", AuthEnum.I18N_PATH.getCode());
         }
         UserAuth userAuth = new UserAuth();
-        UserData userData = new UserData().setAccountType(AccountTypeEnum.System.getValue()).setType(employee.getType()).setUserId(employee.getEmployeeId()).setSaasId(employee.getSaasId()).setOrgId(employee.getOrgId()).setDepartmentId(employee.getDepartmentId());
+        UserData userData = new UserData().setAccountType(AccountTypeEnum.System.getValue()).setType(employee.getType()).setUserId(employee.getEmployeeId()).setAgentId(employee.getAgentId()).setAgentName(employee.getAgentName()).setMerchantId(employee.getMerchantId()).setMerchantName(employee.getMerchantName()).setOrgId(employee.getOrgId()).setOrgName(employee.getOrgName()).setDepartmentId(employee.getDepartmentId()).setDepartmentName(employee.getDepartmentName());
         LoginUser loginUser = new LoginUser();
         Map<String, AuthResourceDto> map = new LinkedHashMap<>();
         List<AuthResourceDto> resources = CollUtil.newArrayList();

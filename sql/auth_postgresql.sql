@@ -71,8 +71,10 @@ CREATE TABLE auth_department (
     department_name VARCHAR(100),
     code VARCHAR(100),
     forbidden_flag INTEGER DEFAULT 0,
-    saas_id VARCHAR(100),
-    saas_name VARCHAR(100),
+    agent_id VARCHAR(200),
+    agent_name VARCHAR(200),
+    merchant_id VARCHAR(200),
+    merchant_name VARCHAR(200),
     type VARCHAR(200),
     insert_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     last_update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -86,8 +88,10 @@ COMMENT ON COLUMN auth_department.department_id IS '部门ID';
 COMMENT ON COLUMN auth_department.department_name IS '名称';
 COMMENT ON COLUMN auth_department.code IS '编号';
 COMMENT ON COLUMN auth_department.forbidden_flag IS '禁用状态 0可用，1禁用';
-COMMENT ON COLUMN auth_department.saas_id IS 'SaasId';
-COMMENT ON COLUMN auth_department.saas_name IS 'Saas名称';
+COMMENT ON COLUMN auth_department.agent_id IS '所属代理商ID';
+COMMENT ON COLUMN auth_department.agent_name IS '所属代理商名称';
+COMMENT ON COLUMN auth_department.merchant_id IS '所属商户ID';
+COMMENT ON COLUMN auth_department.merchant_name IS '所属商户名称';
 COMMENT ON COLUMN auth_department.type IS '平台类型';
 COMMENT ON COLUMN auth_department.insert_time IS '插入时间';
 COMMENT ON COLUMN auth_department.last_update_time IS '最后更新时间';
@@ -112,8 +116,10 @@ CREATE TABLE auth_employee (
     department_id VARCHAR(100),
     department_name VARCHAR(200),
     position VARCHAR(200),
-    saas_id VARCHAR(200),
-    saas_name VARCHAR(200),
+    agent_id VARCHAR(200),
+    agent_name VARCHAR(200),
+    merchant_id VARCHAR(200),
+    merchant_name VARCHAR(200),
     roles TEXT,
     roles_name TEXT,
     extend_info TEXT,
@@ -147,8 +153,10 @@ COMMENT ON COLUMN auth_employee.header_pic IS '头像';
 COMMENT ON COLUMN auth_employee.department_id IS '部门ID';
 COMMENT ON COLUMN auth_employee.department_name IS '部门名称';
 COMMENT ON COLUMN auth_employee.position IS '职位';
-COMMENT ON COLUMN auth_employee.saas_id IS '所属SaasID';
-COMMENT ON COLUMN auth_employee.saas_name IS '所属Saas名称';
+COMMENT ON COLUMN auth_employee.agent_id IS '所属代理商ID';
+COMMENT ON COLUMN auth_employee.agent_name IS '所属代理商名称';
+COMMENT ON COLUMN auth_employee.merchant_id IS '所属商户ID';
+COMMENT ON COLUMN auth_employee.merchant_name IS '所属商户名称';
 COMMENT ON COLUMN auth_employee.roles IS '角色ID';
 COMMENT ON COLUMN auth_employee.roles_name IS '角色名称';
 COMMENT ON COLUMN auth_employee.extend_info IS '扩展信息，可使用JSON存储';
@@ -181,8 +189,10 @@ CREATE TABLE auth_role (
     parent_name VARCHAR(200),
     supper_status INTEGER DEFAULT 0,
     type VARCHAR(200),
-    saas_id VARCHAR(100),
-    saas_name VARCHAR(200),
+    agent_id VARCHAR(200),
+    agent_name VARCHAR(200),
+    merchant_id VARCHAR(200),
+    merchant_name VARCHAR(200),
     biz_type VARCHAR(200),
     insert_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     last_update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -200,8 +210,10 @@ COMMENT ON COLUMN auth_role.parent_id IS '上级ID';
 COMMENT ON COLUMN auth_role.parent_name IS '上级名称';
 COMMENT ON COLUMN auth_role.supper_status IS '超级管理员标识，0：非，1：是';
 COMMENT ON COLUMN auth_role.type IS '平台类型';
-COMMENT ON COLUMN auth_role.saas_id IS '所属SaasID';
-COMMENT ON COLUMN auth_role.saas_name IS '所属Saas名称';
+COMMENT ON COLUMN auth_role.agent_id IS '所属代理商ID';
+COMMENT ON COLUMN auth_role.agent_name IS '所属代理商名称';
+COMMENT ON COLUMN auth_role.merchant_id IS '所属商户ID';
+COMMENT ON COLUMN auth_role.merchant_name IS '所属商户名称';
 COMMENT ON COLUMN auth_role.biz_type IS '业务类型';
 COMMENT ON COLUMN auth_role.insert_time IS '插入时间';
 COMMENT ON COLUMN auth_role.last_update_time IS '最后更新时间';

@@ -38,6 +38,8 @@ import org.springframework.beans.factory.InitializingBean;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 
 /**
  * <p>
@@ -80,7 +82,10 @@ public class RoleServiceImpl implements IRoleService, InitializingBean {
 
     @Override
     public List<RoleResp> queryList(SearchRequest<RoleReq> param) {
-        UserDataFiltrationUtil.saasDataFiltration(param, RoleReq.class, RoleReq::getSaasId, UserData::getSaasId);
+        UserDataFiltrationUtil.saasDataFiltration(param, RoleReq.class, Map.of(
+            RoleReq::getAgentId, UserData::getAgentId,
+            RoleReq::getMerchantId, UserData::getMerchantId
+        ));
         return TransformUtil.transformList(this.roleRepository.queryByCondition(ConditionUtil.conditionByRequest(param)), RoleResp.class);
     }
 
@@ -101,13 +106,21 @@ public class RoleServiceImpl implements IRoleService, InitializingBean {
 
     @Override
     public PageResult<RoleResp> queryByPage(SearchRequest<RoleReq> condition) {
-        UserDataFiltrationUtil.saasDataFiltration(condition, RoleReq.class, RoleReq::getSaasId, UserData::getSaasId);
+        UserDataFiltrationUtil.saasDataFiltration(condition, RoleReq.class, Map.of(
+            RoleReq::getAgentId, UserData::getAgentId,
+            RoleReq::getMerchantId, UserData::getMerchantId
+        ));
         return TransformUtil.transformPageResult(this.roleRepository.queryByPage(ConditionUtil.conditionByRequest(condition)), RoleResp.class);
     }
 
     @Override
     public BaseResult<?> save(ModifyRequest<RoleReq> param) {
-        UserDataFiltrationUtil.setSaasData(param, RoleReq::getSaasId, UserData::getSaasId);
+        UserDataFiltrationUtil.setSaasData(param, Map.of(
+            RoleReq::getAgentId, UserData::getAgentId,
+            RoleReq::getAgentName, UserData::getAgentName,
+            RoleReq::getMerchantId, UserData::getMerchantId,
+            RoleReq::getMerchantName, UserData::getMerchantName
+        ));
         return ServiceUtil.save(param, roleRepository, RoleDto.class);
     }
 

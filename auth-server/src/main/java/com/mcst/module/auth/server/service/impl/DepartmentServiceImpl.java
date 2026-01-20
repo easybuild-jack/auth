@@ -24,6 +24,8 @@ import com.mcst.module.auth.server.service.IDepartmentService;
 import jakarta.annotation.Resource;
 
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 
 /**
  * <p>
@@ -47,7 +49,10 @@ public class DepartmentServiceImpl implements IDepartmentService {
 
     @Override
     public List<DepartmentResp> queryList(SearchRequest<DepartmentReq> param) {
-        UserDataFiltrationUtil.saasDataFiltration(param, DepartmentReq.class, DepartmentReq::getSaasId, UserData::getSaasId);
+        UserDataFiltrationUtil.saasDataFiltration(param, DepartmentReq.class, Map.of(
+            DepartmentReq::getAgentId, UserData::getAgentId,
+            DepartmentReq::getMerchantId, UserData::getMerchantId
+        ));
         return TransformUtil.transformList(this.departmentRepository.queryByCondition(ConditionUtil.conditionByRequest(param)), DepartmentResp.class);
     }
 
@@ -68,13 +73,21 @@ public class DepartmentServiceImpl implements IDepartmentService {
 
     @Override
     public PageResult<DepartmentResp> queryByPage(SearchRequest<DepartmentReq> condition) {
-        UserDataFiltrationUtil.saasDataFiltration(condition, DepartmentReq.class, DepartmentReq::getSaasId, UserData::getSaasId);
+        UserDataFiltrationUtil.saasDataFiltration(condition, DepartmentReq.class, Map.of(
+            DepartmentReq::getAgentId, UserData::getAgentId,
+            DepartmentReq::getMerchantId, UserData::getMerchantId
+        ));
         return TransformUtil.transformPageResult(this.departmentRepository.queryByPage(ConditionUtil.conditionByRequest(condition)), DepartmentResp.class);
     }
 
     @Override
     public BaseResult<?> save(ModifyRequest<DepartmentReq> param) {
-        UserDataFiltrationUtil.setSaasData(param, DepartmentReq::getSaasId, UserData::getSaasId);
+        UserDataFiltrationUtil.setSaasData(param, Map.of(
+            DepartmentReq::getAgentId, UserData::getAgentId,
+            DepartmentReq::getAgentName, UserData::getAgentName,
+            DepartmentReq::getMerchantId, UserData::getMerchantId,
+            DepartmentReq::getMerchantName, UserData::getMerchantName
+        ));
         return ServiceUtil.save(param, departmentRepository, DepartmentDto.class);
     }
 

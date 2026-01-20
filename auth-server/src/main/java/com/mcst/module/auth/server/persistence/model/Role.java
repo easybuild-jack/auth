@@ -63,14 +63,24 @@ public class Role extends BaseMyBatisPlusEntity<Role> {
     private String type;
 
     /**
-     * 所属SaasID
+     * 所属代理商ID
      */
-    private String saasId;
+    private String agentId;
 
     /**
-     * 所属Saas名称
+     * 所属代理商名称
      */
-    private String saasName;
+    private String agentName;
+
+    /**
+     * 所属商户ID
+     */
+    private String merchantId;
+
+    /**
+     * 所属商户名称
+     */
+    private String merchantName;
 
     /**
      * 业务类型
