@@ -6,8 +6,8 @@ import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.ObjUtil;
 import cn.hutool.crypto.SecureUtil;
 import com.mcst.easyfk.authority.dto.AuthResourceDto;
-import com.mcst.easyfk.authority.enums.AccountTypeEnum;
 import com.mcst.easyfk.authority.enums.ResourceCategory;
+import com.mcst.easyfk.authority.enums.UserTypeEnum;
 import com.mcst.easyfk.authority.manager.UserDataManager;
 import com.mcst.easyfk.authority.response.AuthResourceResp;
 import com.mcst.easyfk.authority.vo.UserAuth;
@@ -85,10 +85,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
     @Override
     public List<EmployeeResp> queryList(SearchRequest<EmployeeReq> param) {
-        UserDataFiltrationUtil.saasDataFiltration(param, EmployeeReq.class, Map.of(
-            EmployeeReq::getAgentId, UserData::getAgentId,
-            EmployeeReq::getMerchantId, UserData::getMerchantId
-        ));
+        UserDataFiltrationUtil.saasDataFiltration(param, EmployeeReq.class, Map.of(EmployeeReq::getAgentId, UserData::getAgentId, EmployeeReq::getMerchantId, UserData::getMerchantId));
         return TransformUtil.transformList(this.employeeRepository.queryByCondition(ConditionUtil.conditionByRequest(param)), EmployeeResp.class);
     }
 
@@ -127,10 +124,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
             employeeDTO.setLoginName("dev");
             condition.setNotFields(ArrayUtil.addAll(condition.getNotFields(), new String[]{"loginName"}));
         }
-        UserDataFiltrationUtil.saasDataFiltration(condition, EmployeeReq.class, Map.of(
-            EmployeeReq::getAgentId, UserData::getAgentId,
-            EmployeeReq::getMerchantId, UserData::getMerchantId
-        ));
+        UserDataFiltrationUtil.saasDataFiltration(condition, EmployeeReq.class, Map.of(EmployeeReq::getAgentId, UserData::getAgentId, EmployeeReq::getMerchantId, UserData::getMerchantId));
         SCBuilder<EmployeeDto> SCBuilder = new SCBuilder<>(ConditionUtil.conditionByRequest(condition));
         return TransformUtil.transformPageResult(this.employeeRepository.queryByPage(SCBuilder.build()), EmployeeResp.class);
     }
@@ -138,15 +132,15 @@ public class EmployeeServiceImpl implements IEmployeeService {
     @Override
     public BaseResult<?> save(ModifyRequest<EmployeeReq> param) {
         EmployeeReq employee = param.getParmaObj();
-        UserDataFiltrationUtil.setSaasData(param, Map.of(
-            EmployeeReq::getAgentId, UserData::getAgentId,
-            EmployeeReq::getAgentName, UserData::getAgentName,
-            EmployeeReq::getMerchantId, UserData::getMerchantId,
-            EmployeeReq::getMerchantName, UserData::getMerchantName
-        ));
+        UserDataFiltrationUtil.setSaasData(param, Map.of(EmployeeReq::getAgentId, UserData::getAgentId, EmployeeReq::getAgentName, UserData::getAgentName, EmployeeReq::getMerchantId, UserData::getMerchantId, EmployeeReq::getMerchantName, UserData::getMerchantName));
         if (EmptyUtil.isNotEmpty(employee)) {
             if (EmptyUtil.isEmpty(employee.getEmployeeId())) {
-                employee.setLastUpdatePwd(LocalDateTime.now());
+                employee.setLastUpdatePwd(LocalDateTime.now()).setType(UserTypeEnum.Platform.getValue());
+                if (EmptyUtil.isNotEmpty(employee.getMerchantId())) {
+                    employee.setType(UserTypeEnum.Merchant.getValue());
+                } else if (EmptyUtil.isNotEmpty(employee.getAgentId())) {
+                    employee.setType(UserTypeEnum.Agent.getValue());
+                }
             }
             FunctionExecutor.notEmptyFun(employee.getRoles(), roleIds -> {
                 Set<String> types = new HashSet<>();
@@ -275,8 +269,9 @@ public class EmployeeServiceImpl implements IEmployeeService {
             throw BEBuilder.exceptionByI18n("AccountDisabled", AuthEnum.I18N_PATH.getCode());
         }
         UserAuth userAuth = new UserAuth();
-        UserData userData = new UserData().setAccountType(AccountTypeEnum.System.getValue()).setType(employee.getType()).setUserId(employee.getEmployeeId()).setAgentId(employee.getAgentId()).setAgentName(employee.getAgentName()).setMerchantId(employee.getMerchantId()).setMerchantName(employee.getMerchantName()).setOrgId(employee.getOrgId()).setOrgName(employee.getOrgName()).setDepartmentId(employee.getDepartmentId()).setDepartmentName(employee.getDepartmentName());
+        UserData userData = new UserData().setType(employee.getType()).setUserId(employee.getEmployeeId()).setAgentId(employee.getAgentId()).setAgentName(employee.getAgentName()).setMerchantId(employee.getMerchantId()).setMerchantName(employee.getMerchantName()).setOrgId(employee.getOrgId()).setOrgName(employee.getOrgName()).setDepartmentId(employee.getDepartmentId()).setDepartmentName(employee.getDepartmentName());
         LoginUser loginUser = new LoginUser();
+        loginUser.setUserType(employee.getType());
         Map<String, AuthResourceDto> map = new LinkedHashMap<>();
         List<AuthResourceDto> resources = CollUtil.newArrayList();
         List<RoleDto> roles = CollUtil.newArrayList();

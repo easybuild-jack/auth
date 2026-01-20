@@ -58,7 +58,7 @@ public class Role extends BaseMyBatisPlusEntity<Role> {
     private Integer supperStatus;
 
     /**
-     * 平台类型，如系统/企业/劳务公司等，可根据系统具体业务自定义平台类型
+     * 类型
      */
     private String type;
 

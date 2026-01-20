@@ -3,7 +3,7 @@ package com.mcst.module.auth.server.service.impl;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.crypto.SecureUtil;
 import com.mcst.easyfk.authority.dto.AuthResourceDto;
-import com.mcst.easyfk.authority.enums.AccountTypeEnum;
+import com.mcst.easyfk.authority.enums.UserTypeEnum;
 import com.mcst.easyfk.core.builders.BEBuilder;
 import com.mcst.easyfk.core.constants.CharacterConstant;
 import com.mcst.easyfk.core.dto.login.UserData;
@@ -39,7 +39,6 @@ import org.springframework.beans.factory.InitializingBean;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 
 /**
  * <p>
@@ -82,10 +81,7 @@ public class RoleServiceImpl implements IRoleService, InitializingBean {
 
     @Override
     public List<RoleResp> queryList(SearchRequest<RoleReq> param) {
-        UserDataFiltrationUtil.saasDataFiltration(param, RoleReq.class, Map.of(
-            RoleReq::getAgentId, UserData::getAgentId,
-            RoleReq::getMerchantId, UserData::getMerchantId
-        ));
+        UserDataFiltrationUtil.saasDataFiltration(param, RoleReq.class, Map.of(RoleReq::getAgentId, UserData::getAgentId, RoleReq::getMerchantId, UserData::getMerchantId));
         return TransformUtil.transformList(this.roleRepository.queryByCondition(ConditionUtil.conditionByRequest(param)), RoleResp.class);
     }
 
@@ -106,21 +102,13 @@ public class RoleServiceImpl implements IRoleService, InitializingBean {
 
     @Override
     public PageResult<RoleResp> queryByPage(SearchRequest<RoleReq> condition) {
-        UserDataFiltrationUtil.saasDataFiltration(condition, RoleReq.class, Map.of(
-            RoleReq::getAgentId, UserData::getAgentId,
-            RoleReq::getMerchantId, UserData::getMerchantId
-        ));
+        UserDataFiltrationUtil.saasDataFiltration(condition, RoleReq.class, Map.of(RoleReq::getAgentId, UserData::getAgentId, RoleReq::getMerchantId, UserData::getMerchantId));
         return TransformUtil.transformPageResult(this.roleRepository.queryByPage(ConditionUtil.conditionByRequest(condition)), RoleResp.class);
     }
 
     @Override
     public BaseResult<?> save(ModifyRequest<RoleReq> param) {
-        UserDataFiltrationUtil.setSaasData(param, Map.of(
-            RoleReq::getAgentId, UserData::getAgentId,
-            RoleReq::getAgentName, UserData::getAgentName,
-            RoleReq::getMerchantId, UserData::getMerchantId,
-            RoleReq::getMerchantName, UserData::getMerchantName
-        ));
+        UserDataFiltrationUtil.setSaasData(param, Map.of(RoleReq::getAgentId, UserData::getAgentId, RoleReq::getAgentName, UserData::getAgentName, RoleReq::getMerchantId, UserData::getMerchantId, RoleReq::getMerchantName, UserData::getMerchantName));
         return ServiceUtil.save(param, roleRepository, RoleDto.class);
     }
 
@@ -147,14 +135,14 @@ public class RoleServiceImpl implements IRoleService, InitializingBean {
         if (authProperties.getInit()) {
             RoleDto role = this.queryOneByField("supperStatus", 1);
             if (EmptyUtil.isEmpty(role)) {
-                role = new RoleDto().setRoleName("开发者").setRemark("系统开发所需的测试权限").setForbiddenFlag(0).setType(AccountTypeEnum.System.getValue());
+                role = new RoleDto().setRoleName("开发者").setRemark("系统开发所需的测试权限").setForbiddenFlag(0).setType(UserTypeEnum.Platform.getValue());
                 role.setSupperStatus(1);
                 String roleId = this.roleRepository.insertAndReturnId(role);
                 role.setRoleId(roleId);
             }
             EmployeeDto employee = this.employeeRepository.queryOneByField("loginName", "dev");
             if (EmptyUtil.isEmpty(employee)) {
-                employee = new EmployeeDto().setForbiddenFlag(0).setType(AccountTypeEnum.System.getValue()).setEmployeeName("开发专用").setLoginName("dev").setPassword(SecureUtil.md5("dev@123")).setRoles(role.getRoleId());
+                employee = new EmployeeDto().setForbiddenFlag(0).setType(UserTypeEnum.Platform.getValue()).setEmployeeName("开发专用").setLoginName("dev").setPassword(SecureUtil.md5("dev@123")).setRoles(role.getRoleId());
                 this.employeeRepository.insert(employee);
             }
         }

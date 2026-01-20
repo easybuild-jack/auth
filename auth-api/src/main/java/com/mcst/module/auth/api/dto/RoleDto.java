@@ -70,9 +70,9 @@ public class RoleDto extends BaseDto {
     private Integer supperStatus;
 
     /**
-     * 平台类型
+     * 类型
      */
-    @Schema(description = "平台类型")
+    @Schema(description = "类型")
     private String type;
 
     /**
