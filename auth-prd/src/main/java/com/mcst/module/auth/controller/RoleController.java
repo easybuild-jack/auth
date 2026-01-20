@@ -114,7 +114,7 @@ public class RoleController {
 
     @Operation(summary = "角色资源数据接口")
     @GetMapping("/parentResourceByRoleId")
-    public ResponseResult<List<RoleResourceVO>> getResourceByRoleId(String roleId) {
+    public ResponseResult<List<RoleResourceVO>> getResourceByRoleId(@RequestParam("roleId") String roleId) {
         List<RoleResourceVO> tree = this.roleApi.getRoleResourceByRoleId(roleId);
         return RRBuilder.buildSuccessBody(tree);
     }
