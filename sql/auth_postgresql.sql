@@ -2,6 +2,9 @@
 -- 生成时间: 2024-10-26
 -- 说明: 基于Java模型类生成的数据库表结构
 
+-- 设置客户端编码，确保中文注释正常显示
+SET client_encoding = 'UTF8';
+
 -- 1. 权限资源表 (auth_resource)
 CREATE TABLE auth_resource (
     resource_id VARCHAR(50) NOT NULL,
