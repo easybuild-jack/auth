@@ -246,7 +246,9 @@ public class RoleServiceImpl implements IRoleService, InitializingBean {
         List<AuthResourceDto> orgRes = CollUtil.newArrayList();
         SCBuilder<AuthResourceDto> builder = SCBuilder.<AuthResourceDto>builder().equalsConditions("resourceLevel", 2).ascFields("sort");
         if (EmptyUtil.isNotEmpty(type)) {
-            builder.likeConditions("type", type);
+            String sql = "(type_flag like '%" + type + "%' or type_flag = 'all')";
+           // builder.likeConditions("typeFlag", type);
+            builder.customConditionSql(sql);
         }
         if (EmptyUtil.isNotEmpty(columns)) {
             builder.selectFields(columns);
