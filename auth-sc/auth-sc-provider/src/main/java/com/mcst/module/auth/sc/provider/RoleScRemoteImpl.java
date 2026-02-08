@@ -10,7 +10,7 @@ import com.mcst.module.auth.sc.client.api.remote.IRoleScRemote;
 import com.mcst.module.auth.server.service.IRoleService;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ import java.util.List;
  *
  * @author liuyijun
  */
-@RestController
+@ResponseBody
 @RequestMapping("${easyfk.config.remote.auth.base-path:/remote}/auth/role")
 public class RoleScRemoteImpl extends BaseRemoteImpl<IRoleService, RoleResp, String, RoleReq> implements IRoleScRemote {
 
