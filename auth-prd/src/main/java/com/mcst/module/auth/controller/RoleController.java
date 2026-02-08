@@ -32,7 +32,7 @@ import java.util.List;
  * @author liuyijun
  */
 @Tag(name = "角色相关接口")
-@RestController
+@ResponseBody
 @RequestMapping("/api/auth/role")
 @ResourceController(group = "authManage", id = "authManage", name = "权限管理", path = "/auth", sort = 99000)
 public class RoleController {

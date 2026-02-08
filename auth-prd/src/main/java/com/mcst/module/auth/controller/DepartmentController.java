@@ -30,7 +30,7 @@ import java.util.List;
  * @author liuyijun
  */
 @Tag(name = "部门相关接口", description = "部门相关接口")
-@RestController
+@ResponseBody
 @RequestMapping("/api/auth/department")
 @ResourceController(group = "authManage", id = "authManage", name = "权限管理", sort = 99000, path = "/auth")
 public class DepartmentController {

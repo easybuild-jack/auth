@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
  * @author liuyijun
  */
 @Tag(name = "后台登录相关接口")
-@RestController
+@ResponseBody
 @RequestMapping("/api/auth")
 public class LoginController {
 
