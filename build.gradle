@@ -19,8 +19,8 @@ subprojects {
         implementation platform(libs.dependencies)
         compileOnly libs.lombok
         testCompileOnly libs.lombok
-        annotationProcessor(libs.lombok, libs.processor,libs.lombokMapstruct,libs.mapstructProcessor)
-        testAnnotationProcessor(libs.lombok, libs.processor,libs.lombokMapstruct,libs.mapstructProcessor)
+        annotationProcessor(libs.lombok, libs.processor, libs.lombokMapstruct, libs.mapstructProcessor)
+        testAnnotationProcessor(libs.lombok, libs.processor, libs.lombokMapstruct, libs.mapstructProcessor)
     }
     tasks.withType(JavaCompile).configureEach {
         options.compilerArgs += ['-Amapstruct.plus.nullValuePropertyMappingStrategy=IGNORE']

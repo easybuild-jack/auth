@@ -1,16 +1,16 @@
 package com.mcst.module.auth.config;
 
 import com.mcst.module.auth.controller.*;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * @author liu yijun
  * @version 1.0
  */
-@Configuration
+@AutoConfiguration
 @EnableConfigurationProperties
 public class AuthControllerConfig {
 

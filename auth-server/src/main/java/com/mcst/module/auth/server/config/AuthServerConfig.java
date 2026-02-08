@@ -20,15 +20,15 @@ import com.mcst.module.auth.server.service.impl.AuthResourceServiceImpl;
 import com.mcst.module.auth.server.service.impl.DepartmentServiceImpl;
 import com.mcst.module.auth.server.service.impl.EmployeeServiceImpl;
 import com.mcst.module.auth.server.service.impl.RoleServiceImpl;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * @author liuyijun
  */
-@Configuration
+@AutoConfiguration
 @EnableConfigurationProperties({AuthProperties.class, EmpPwdProperties.class})
 public class AuthServerConfig {
     @Bean

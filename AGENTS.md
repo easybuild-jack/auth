@@ -4,7 +4,8 @@ This document provides guidelines and commands for agentic coding agents working
 
 ## Project Overview
 
-This is a Java 21 Spring Boot authentication module project using Gradle. The project is structured as a multi-module Gradle project with the following modules:
+This is a Java 21 Spring Boot authentication module project using Gradle. The project is structured as a multi-module
+Gradle project with the following modules:
 
 - **auth-api**: API definitions (DTOs, requests, responses, VOs)
 - **auth-server**: Core service implementation and persistence layer
@@ -43,7 +44,8 @@ This is a Java 21 Spring Boot authentication module project using Gradle. The pr
 
 ### Imports
 
-- Group imports in this order: Java standard library, Jakarta annotations, Spring Framework, third-party libraries (hutool, mapstruct, lombok, mybatis-plus), project internal modules (com.mcst.easyfk.*), then local project imports
+- Group imports in this order: Java standard library, Jakarta annotations, Spring Framework, third-party libraries (
+  hutool, mapstruct, lombok, mybatis-plus), project internal modules (com.mcst.easyfk.*), then local project imports
 - Use wildcard imports sparingly; prefer explicit imports for clarity
 - Always use `jakarta.annotation.Resource` (not `javax.annotation.Resource`)
 

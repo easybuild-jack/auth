@@ -8,15 +8,15 @@ import com.mcst.module.auth.sc.provider.DepartmentScRemoteImpl;
 import com.mcst.module.auth.sc.provider.EmployeeScRemoteImpl;
 import com.mcst.module.auth.sc.provider.RoleScRemoteImpl;
 import com.mcst.module.resource.sc.client.api.remote.IAuthResourceRemote;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * @author liu yijun
  * @version 1.0
  */
-@Configuration
+@AutoConfiguration
 public class AuthProviderConfig {
 
     @Bean

@@ -7,15 +7,15 @@ import com.mcst.module.auth.sc.client.impl.DepartmentApiScImpl;
 import com.mcst.module.auth.sc.client.impl.EmployeeApiScImpl;
 import com.mcst.module.auth.sc.client.impl.RoleApiScImpl;
 import com.mcst.module.auth.sc.client.properties.AuthScProperties;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * @author liuyijun
  */
-@Configuration
+@AutoConfiguration
 @EnableConfigurationProperties(AuthScProperties.class)
 public class AuthScConfig {
 
