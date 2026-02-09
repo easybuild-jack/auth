@@ -13,6 +13,7 @@ import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ import java.util.List;
  * @author liuyijun
  */
 @Tag(name = "资源管理接口")
-@ResponseBody
+@RestController
 @RequestMapping("/api/auth/resource")
 public class ResourceController {
 

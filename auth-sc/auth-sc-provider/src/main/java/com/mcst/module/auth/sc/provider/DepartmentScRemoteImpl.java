@@ -7,6 +7,7 @@ import com.mcst.module.auth.sc.client.api.remote.IDepartmentScRemote;
 import com.mcst.module.auth.server.service.IDepartmentService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  *
  * @author liuyijun
  */
-@ResponseBody
+@RestController
 @RequestMapping("${easyfk.config.remote.auth.base-path:/remote}/auth/department")
 public class DepartmentScRemoteImpl extends BaseRemoteImpl<IDepartmentService, DepartmentResp, String, DepartmentReq> implements IDepartmentScRemote {
 
