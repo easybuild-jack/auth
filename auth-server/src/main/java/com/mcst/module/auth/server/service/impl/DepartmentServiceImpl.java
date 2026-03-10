@@ -18,8 +18,8 @@ import com.mcst.module.auth.api.dto.DepartmentDto;
 import com.mcst.module.auth.api.request.DepartmentReq;
 import com.mcst.module.auth.api.response.DepartmentResp;
 import com.mcst.module.auth.server.enums.AuthEnum;
-import com.mcst.module.auth.server.repository.IDepartmentRepository;
-import com.mcst.module.auth.server.repository.IEmployeeRepository;
+import com.mcst.module.auth.orm.repository.IDepartmentRepository;
+import com.mcst.module.auth.orm.repository.IEmployeeRepository;
 import com.mcst.module.auth.server.service.IDepartmentService;
 import jakarta.annotation.Resource;
 

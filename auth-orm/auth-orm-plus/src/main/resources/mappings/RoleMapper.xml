@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mcst.module.auth.orm.plus.persistence.mapper.RoleMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="RoleBaseResultMap" type="com.mcst.module.auth.orm.plus.persistence.model.Role">
+        <result column="id" property="id"/>
+        <result column="deleted" property="deleted"/>
+        <result column="version" property="version"/>
+        <result column="insert_time" property="insertTime"/>
+        <result column="last_update_time" property="lastUpdateTime"/>
+        <result column="name" property="name"/>
+        <result column="status" property="status"/>
+        <result column="remark" property="remark"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="parent_name" property="parentName"/>
+        <result column="supper_status" property="supperStatus"/>
+        <result column="type" property="type"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Role_Base_Column_List">
+        id,
+        deleted,
+        version,
+        insert_time,
+        last_update_time,
+        name, status, remark, parent_id, parent_name, supper_status, type
+    </sql>
+
+</mapper>

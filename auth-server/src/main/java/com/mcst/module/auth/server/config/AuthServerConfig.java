@@ -10,8 +10,6 @@ import com.mcst.module.auth.server.impl.EmployeeApiServerImpl;
 import com.mcst.module.auth.server.impl.RoleApiServerImpl;
 import com.mcst.module.auth.server.properties.AuthProperties;
 import com.mcst.module.auth.server.properties.EmpPwdProperties;
-import com.mcst.module.auth.server.repository.*;
-import com.mcst.module.auth.server.repository.impl.*;
 import com.mcst.module.auth.server.service.IAuthResourceService;
 import com.mcst.module.auth.server.service.IDepartmentService;
 import com.mcst.module.auth.server.service.IEmployeeService;
@@ -58,26 +56,8 @@ public class AuthServerConfig {
 
     @Bean
     @ConditionalOnMissingBean
-    public IRoleRepository roleRepository() {
-        return new RoleMybatisRepository();
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public IRoleResourceRepository roleResourceRepository() {
-        return new RoleResourceMybatisRepository();
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
     public IEmployeeService employeeService() {
         return new EmployeeServiceImpl();
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public IEmployeeRepository employeeRepository() {
-        return new EmployeeMybatisRepository();
     }
 
     @Bean
@@ -85,19 +65,6 @@ public class AuthServerConfig {
     public IDepartmentService departmentService() {
         return new DepartmentServiceImpl();
     }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public IDepartmentRepository departmentRepository() {
-        return new DepartmentMybatisRepository();
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public IAuthResourceRepository authResourceRepository() {
-        return new AuthResourceMybatisRepository();
-    }
-
 
     @Bean
     @ConditionalOnMissingBean

@@ -15,7 +15,7 @@ import com.mcst.easyfk.repository.search.SCBuilder;
 import com.mcst.easyfk.repository.search.SearchCondition;
 import com.mcst.easyfk.repository.util.ConditionUtil;
 import com.mcst.easyfk.service.util.ServiceUtil;
-import com.mcst.module.auth.server.repository.IAuthResourceRepository;
+import com.mcst.module.auth.orm.repository.IAuthResourceRepository;
 import com.mcst.module.auth.server.service.IAuthResourceService;
 import com.mcst.module.auth.server.util.ResourceSecurityLevelUtil;
 import jakarta.annotation.Resource;

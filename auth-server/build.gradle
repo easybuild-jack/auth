@@ -1,6 +1,8 @@
 dependencies {
     api project(':auth-api')
     api('com.mcst:easyfk-authority')
-    api('com.mcst:orm-mybatis')
+    compileOnly project(':auth-orm:auth-orm-plus')
+    implementation('com.mcst:service-base')
+    compileOnly('org.springframework:spring-tx')
 }
 
