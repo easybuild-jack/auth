@@ -1,3 +1,4 @@
 dependencies {
     api('com.mcst:easyfk-repository')
+    api('com.mcst:login-orm-api')
 }

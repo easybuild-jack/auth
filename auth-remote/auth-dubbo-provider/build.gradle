@@ -3,4 +3,5 @@ dependencies {
     api project(':auth-remote:auth-dubbo-api')
     api project(':auth-server')
     compileOnly('com.mcst:rpc-dubbo')
+    compileOnly('com.mcst:login-dubbo-provider')
 }

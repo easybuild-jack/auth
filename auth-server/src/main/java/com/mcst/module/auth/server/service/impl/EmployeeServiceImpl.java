@@ -9,6 +9,7 @@ import com.mcst.easyfk.authority.dto.AuthResourceDto;
 import com.mcst.easyfk.authority.enums.ResourceCategory;
 import com.mcst.easyfk.authority.enums.UserTypeEnum;
 import com.mcst.easyfk.authority.manager.UserDataManager;
+import com.mcst.easyfk.authority.properties.LoginCacheProperties;
 import com.mcst.easyfk.authority.response.AuthResourceResp;
 import com.mcst.easyfk.authority.vo.UserAuth;
 import com.mcst.easyfk.authority.vo.UserAuthResources;
@@ -21,6 +22,7 @@ import com.mcst.easyfk.core.dto.page.PageResult;
 import com.mcst.easyfk.core.dto.request.ModifyRequest;
 import com.mcst.easyfk.core.dto.request.SearchRequest;
 import com.mcst.easyfk.core.dto.response.BaseResult;
+import com.mcst.easyfk.core.exception.BusinessException;
 import com.mcst.easyfk.core.function.FunctionExecutor;
 import com.mcst.easyfk.core.utils.common.EmptyUtil;
 import com.mcst.easyfk.core.utils.common.I18NUtil;
@@ -31,6 +33,8 @@ import com.mcst.easyfk.repository.search.SearchCondition;
 import com.mcst.easyfk.repository.util.ConditionUtil;
 import com.mcst.easyfk.service.util.ServiceUtil;
 import com.mcst.easyfk.service.util.UserDataFiltrationUtil;
+import com.mcst.login.api.dto.LoginRecordDto;
+import com.mcst.login.server.service.ILoginRecordService;
 import com.mcst.module.auth.api.dto.EmployeeDto;
 import com.mcst.module.auth.api.dto.RoleDto;
 import com.mcst.module.auth.api.dto.RoleResourceDto;
@@ -58,7 +62,7 @@ import java.util.*;
  *
  * @author liuyijun
  */
-
+@SuppressWarnings("unused")
 public class EmployeeServiceImpl implements IEmployeeService {
     @Resource
     private IEmployeeRepository employeeRepository;
@@ -77,6 +81,13 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
     @Resource
     private IAuthResourceService authResourceService;
+
+
+    @Resource
+    private ILoginRecordService loginRecordService;
+
+    @Resource
+    private LoginCacheProperties loginCacheProperties;
 
     @Override
     public EmployeeResp queryById(String id, String... selectColumns) {
@@ -181,7 +192,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
         if (!ObjUtil.equals(loginRequest.getPassword(), employee.getPassword())) {
             throw BEBuilder.exceptionByI18n("LoginPwdError", AuthEnum.I18N_PATH.getCode());
         }
-        return this.employeeLogin(employee);
+        return this.employeeLogin(employee, loginRequest.getLoginIp(), loginRequest.getDeviceInfo());
     }
 
     @Override
@@ -248,7 +259,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
         if (EmptyUtil.isEmpty(employeeDTO)) {
             throw BEBuilder.exceptionByI18n("UserNotExist", AuthEnum.I18N_PATH.getCode());
         }
-        return this.employeeLogin(employeeDTO);
+        return this.employeeLogin(employeeDTO, null, null);
     }
 
     @Override
@@ -257,13 +268,13 @@ public class EmployeeServiceImpl implements IEmployeeService {
         if (EmptyUtil.isEmpty(employeeDTO)) {
             throw BEBuilder.exceptionByI18n("UserNotExist", AuthEnum.I18N_PATH.getCode());
         }
-        return this.employeeLogin(employeeDTO);
+        return this.employeeLogin(employeeDTO, null, null);
     }
 
     /**
      * 员工登录
      */
-    private LoginResult employeeLogin(EmployeeDto employee) {
+    private LoginResult employeeLogin(EmployeeDto employee, String loginIp, String deviceInfo) {
         if (EmptyUtil.isNotEmpty(employee.getForbiddenFlag()) && employee.getForbiddenFlag() == 1) {
             throw BEBuilder.exceptionByI18n("AccountDisabled", AuthEnum.I18N_PATH.getCode());
         }
@@ -332,8 +343,13 @@ public class EmployeeServiceImpl implements IEmployeeService {
             }
         }
         BaseResult<String> cacheLoginDataResult = this.userDataManager.cacheLoginData(userData, userAuth);
-        loginUser.setName(Optional.ofNullable(employee.getEmployeeName()).orElse(employee.getLoginName()))
-                .setLoginToken(cacheLoginDataResult.getData());
+        if (!cacheLoginDataResult.getSuccess()) {
+            throw new BusinessException("登录失败！");
+        }
+        loginUser.setName(Optional.ofNullable(employee.getEmployeeName()).orElse(employee.getLoginName())).setLoginToken(cacheLoginDataResult.getData());
+        LocalDateTime expireTime = LocalDateTime.now().plusMinutes(loginCacheProperties.getLiveTime());
+        LoginRecordDto loginRecordDto = LoginRecordDto.builder().loginToken(cacheLoginDataResult.getData()).loginTime(LocalDateTime.now()).expireTime(expireTime).userId(employee.getEmployeeId()).phone(employee.getMobile()).type("platform").loginIp(loginIp).deviceInfo(deviceInfo).build();
+        this.loginRecordService.login(loginRecordDto);
         return new LoginResult(loginUser).setHeadImage(employee.getHeaderPic());
     }
 
@@ -424,6 +440,5 @@ public class EmployeeServiceImpl implements IEmployeeService {
                 subResourceMethod(subMenus, resources);
             }
         }
-
     }
 }

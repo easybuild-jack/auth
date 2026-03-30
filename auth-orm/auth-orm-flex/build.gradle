@@ -1,4 +1,5 @@
 dependencies {
     api project(':auth-orm:auth-orm-api')
     api('com.mcst:orm-flex')
+    api('com.mcst:login-orm-flex')
 }

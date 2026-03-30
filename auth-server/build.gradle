@@ -2,7 +2,8 @@ dependencies {
     api project(':auth-api')
     api('com.mcst:easyfk-authority')
     api project(':auth-orm:auth-orm-api')
-    implementation('com.mcst:service-base')
+    api('com.mcst:service-base')
+    api('com.mcst:login-server')
     compileOnly('org.springframework:spring-tx')
 }
 

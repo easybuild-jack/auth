@@ -3,4 +3,5 @@ dependencies {
     api project(':auth-remote:auth-cloud-api')
     api project(':auth-server')
     compileOnly('com.mcst:remote-cloud')
+    compileOnly('com.mcst:login-cloud-provider')
 }

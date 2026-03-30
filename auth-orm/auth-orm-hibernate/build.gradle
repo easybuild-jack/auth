@@ -1,4 +1,5 @@
 dependencies {
     api project(':auth-orm:auth-orm-api')
     api('com.mcst:orm-hibernate')
+    api('com.mcst:login-orm-hibernate')
 }

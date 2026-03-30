@@ -2,4 +2,5 @@ dependencies {
     compileOnly('org.springframework:spring-web')
     compileOnly('org.springframework.cloud:spring-cloud-starter-openfeign')
     api('com.mcst:remote-cloud')
+    api('com.mcst:login-cloud-api')
 }
