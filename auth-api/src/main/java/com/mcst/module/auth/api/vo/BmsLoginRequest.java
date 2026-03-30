@@ -16,4 +16,12 @@ public class BmsLoginRequest implements Serializable {
 
     private String password;
 
+    private String deviceInfo;
+
+    private String clientType;
+
+    private String loginIp;
+
+    private String ipLocation;
+
 }

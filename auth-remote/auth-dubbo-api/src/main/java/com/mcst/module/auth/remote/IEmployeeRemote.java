@@ -2,6 +2,7 @@ package com.mcst.module.auth.remote;
 
 import com.mcst.easyfk.authority.vo.UserAuthResources;
 import com.mcst.easyfk.core.dto.login.LoginResult;
+import com.mcst.easyfk.core.dto.login.UserData;
 import com.mcst.easyfk.core.dto.response.BaseResult;
 import com.mcst.easyfk.remote.dubbo.IDubboBaseRemote;
 import com.mcst.module.auth.api.request.EmployeeReq;
@@ -38,12 +39,12 @@ public interface IEmployeeRemote extends IDubboBaseRemote<EmployeeResp, String, 
     /**
      * 获取员工所有资源
      */
-    List<UserAuthResources> queryEmployeeResource(String cacheKey);
+    List<UserAuthResources> queryEmployeeResource(String loginToke);
 
     /**
      * 退出登录
      */
-    BaseResult<?> loginOut();
+    BaseResult<?> loginOut(UserData userData);
 
     /**
      * 钉钉登录

@@ -2,6 +2,7 @@ package com.mcst.module.auth.remote;
 
 import com.mcst.easyfk.authority.vo.UserAuthResources;
 import com.mcst.easyfk.core.dto.login.LoginResult;
+import com.mcst.easyfk.core.dto.login.UserData;
 import com.mcst.easyfk.core.dto.response.BaseResult;
 import com.mcst.easyfk.remote.sc.IBaseRemote;
 import com.mcst.module.auth.api.request.EmployeeReq;
@@ -55,11 +56,11 @@ public interface IEmployeeRemote extends IBaseRemote<EmployeeResp, String, Emplo
     /**
      * 获取员工所有资源
      *
-     * @param cacheKey
+     * @param loginToke
      * @return
      */
     @GetMapping("/queryEmployeeResource")
-    List<UserAuthResources> queryEmployeeResource(@RequestParam("cacheKey") String cacheKey);
+    List<UserAuthResources> queryEmployeeResource(@RequestParam("cacheKey") String loginToke);
 
     /**
      * 退出登录
@@ -67,7 +68,7 @@ public interface IEmployeeRemote extends IBaseRemote<EmployeeResp, String, Emplo
      * @return
      */
     @PostMapping(value = "/loginOut", consumes = MediaType.APPLICATION_JSON_VALUE)
-    BaseResult<?> loginOut();
+    BaseResult<?> loginOut(@RequestBody UserData userData);
 
     /**
      * 钉钉登录

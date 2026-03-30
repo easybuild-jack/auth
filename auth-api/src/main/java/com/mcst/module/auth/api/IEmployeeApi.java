@@ -2,6 +2,7 @@ package com.mcst.module.auth.api;
 
 import com.mcst.easyfk.authority.vo.UserAuthResources;
 import com.mcst.easyfk.core.dto.login.LoginResult;
+import com.mcst.easyfk.core.dto.login.UserData;
 import com.mcst.easyfk.core.dto.response.BaseResult;
 import com.mcst.easyfk.service.api.IBaseApi;
 import com.mcst.module.auth.api.request.EmployeeReq;
@@ -44,17 +45,17 @@ public interface IEmployeeApi extends IBaseApi<EmployeeResp, String, EmployeeReq
     /**
      * 获取员工所有资源
      *
-     * @param cacheKey
+     * @param loginToke
      * @return
      */
-    List<UserAuthResources> queryEmployeeResource(String cacheKey);
+    List<UserAuthResources> queryEmployeeResource(String loginToke);
 
     /**
      * 退出登录
      *
      * @return
      */
-    BaseResult<?> loginOut();
+    BaseResult<?> loginOut(UserData userData);
 
     /**
      * 钉钉登录

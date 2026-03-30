@@ -12,7 +12,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -33,7 +32,7 @@ public class ResourceController {
     @LoginResource
     public ResponseResult<List<UserAuthResources>> getUserAuthResources() {
         UserData loginUser = UserDataContext.getUserData();
-        List<UserAuthResources> list = this.employeeApi.queryEmployeeResource(loginUser.getAuthCachedKey());
+        List<UserAuthResources> list = this.employeeApi.queryEmployeeResource(loginUser.getLoginToken());
         return RRBuilder.buildSuccessBody(list);
     }
 

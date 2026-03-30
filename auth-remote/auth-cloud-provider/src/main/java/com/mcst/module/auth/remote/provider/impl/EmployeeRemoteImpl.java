@@ -2,6 +2,7 @@ package com.mcst.module.auth.remote.provider.impl;
 
 import com.mcst.easyfk.authority.vo.UserAuthResources;
 import com.mcst.easyfk.core.dto.login.LoginResult;
+import com.mcst.easyfk.core.dto.login.UserData;
 import com.mcst.easyfk.core.dto.response.BaseResult;
 import com.mcst.easyfk.remote.sc.BaseRemoteImpl;
 import com.mcst.module.auth.api.request.EmployeeReq;
@@ -52,13 +53,13 @@ public class EmployeeRemoteImpl extends BaseRemoteImpl<IEmployeeService, Employe
     }
 
     @Override
-    public List<UserAuthResources> queryEmployeeResource(String cacheKey) {
-        return this.employeeService.queryEmployeeResource(cacheKey);
+    public List<UserAuthResources> queryEmployeeResource(String loginToke) {
+        return this.employeeService.queryEmployeeResource(loginToke);
     }
 
     @Override
-    public BaseResult<?> loginOut() {
-        return this.employeeService.loginOut();
+    public BaseResult<?> loginOut(UserData userData) {
+        return this.employeeService.loginOut(userData);
     }
 
     @Override

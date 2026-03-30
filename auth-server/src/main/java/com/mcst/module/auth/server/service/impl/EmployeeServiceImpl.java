@@ -39,11 +39,11 @@ import com.mcst.module.auth.api.response.EmployeeResp;
 import com.mcst.module.auth.api.vo.BmsLoginRequest;
 import com.mcst.module.auth.api.vo.ChangePwdVO;
 import com.mcst.module.auth.api.vo.RestLoginPwdVO;
-import com.mcst.module.auth.server.enums.AuthEnum;
-import com.mcst.module.auth.server.properties.EmpPwdProperties;
 import com.mcst.module.auth.orm.repository.IEmployeeRepository;
 import com.mcst.module.auth.orm.repository.IRoleRepository;
 import com.mcst.module.auth.orm.repository.IRoleResourceRepository;
+import com.mcst.module.auth.server.enums.AuthEnum;
+import com.mcst.module.auth.server.properties.EmpPwdProperties;
 import com.mcst.module.auth.server.service.IAuthResourceService;
 import com.mcst.module.auth.server.service.IEmployeeService;
 import jakarta.annotation.Resource;
@@ -215,9 +215,9 @@ public class EmployeeServiceImpl implements IEmployeeService {
     }
 
     @Override
-    public List<UserAuthResources> queryEmployeeResource(String cacheKey) {
+    public List<UserAuthResources> queryEmployeeResource(String loginToke) {
         List<UserAuthResources> result = new ArrayList<>();
-        UserAuth userAuth = this.userDataManager.getUserAuth(cacheKey);
+        UserAuth userAuth = this.userDataManager.getUserAuth(loginToke);
         List<AuthResourceDto> resources = userAuth.getResources();
         if (EmptyUtil.isNotEmpty(resources)) {
             for (AuthResourceDto resource : resources) {
@@ -232,8 +232,8 @@ public class EmployeeServiceImpl implements IEmployeeService {
     }
 
     @Override
-    public BaseResult<?> loginOut() {
-        return this.userDataManager.loginOut();
+    public BaseResult<?> loginOut(UserData userData) {
+        return this.userDataManager.loginOut(userData);
     }
 
     @Override
@@ -246,7 +246,6 @@ public class EmployeeServiceImpl implements IEmployeeService {
         }
         EmployeeDto employeeDTO = this.employeeRepository.queryOneByCondition(conditionBuilder.build());
         if (EmptyUtil.isEmpty(employeeDTO)) {
-            //throw new BusinessException("用户不存在");
             throw BEBuilder.exceptionByI18n("UserNotExist", AuthEnum.I18N_PATH.getCode());
         }
         return this.employeeLogin(employeeDTO);
@@ -332,11 +331,9 @@ public class EmployeeServiceImpl implements IEmployeeService {
                 userAuth.setUrls(urls);
             }
         }
-        String authCachedKey = this.userDataManager.cacheUserAuth(userAuth).getData();
-        loginUser.setAuthCachedKey(authCachedKey);
-        String dataCachedKey = this.userDataManager.cacheUserData(userData).getData();
-        loginUser.setDataCachedKey(dataCachedKey);
-        loginUser.setName(Optional.ofNullable(employee.getEmployeeName()).orElse(employee.getLoginName()));
+        BaseResult<String> cacheLoginDataResult = this.userDataManager.cacheLoginData(userData, userAuth);
+        loginUser.setName(Optional.ofNullable(employee.getEmployeeName()).orElse(employee.getLoginName()))
+                .setLoginToken(cacheLoginDataResult.getData());
         return new LoginResult(loginUser).setHeadImage(employee.getHeaderPic());
     }
 

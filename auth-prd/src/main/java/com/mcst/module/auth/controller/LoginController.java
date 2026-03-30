@@ -9,6 +9,7 @@ import com.mcst.easyfk.core.dto.login.UserData;
 import com.mcst.easyfk.core.dto.response.ResponseResult;
 import com.mcst.easyfk.core.utils.common.EmptyUtil;
 import com.mcst.easyfk.web.base.manager.JwtManager;
+import com.mcst.easyfk.web.prd.util.ClientIpUtil;
 import com.mcst.easyfk.web.prd.vo.LoginRequestVO;
 import com.mcst.module.auth.api.IEmployeeApi;
 import com.mcst.module.auth.api.vo.BmsLoginRequest;
@@ -18,6 +19,7 @@ import com.mcst.module.auth.api.vo.RestLoginPwdVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -43,8 +45,9 @@ public class LoginController {
      */
     @Operation(summary = "登录接口")
     @PostMapping("/login")
-    public ResponseResult<?> doLogin(@RequestBody @Validated LoginRequestVO loginVO) {
-        BmsLoginRequest loginRequest = new BmsLoginRequest().setLoginName(loginVO.getLoginAccount()).setPassword(loginVO.getPassword());
+    public ResponseResult<?> doLogin(@RequestBody @Validated LoginRequestVO loginVO, HttpServletRequest request) {
+        String loginIp = ClientIpUtil.getClientIp(request);
+        BmsLoginRequest loginRequest = new BmsLoginRequest().setLoginName(loginVO.getLoginAccount()).setPassword(loginVO.getPassword()).setClientType(loginVO.getClientType()).setDeviceInfo(loginVO.getDeviceInfo()).setLoginIp(loginIp);
         LoginResult loginResult = this.employeeApi.login(loginRequest);
         if (!loginResult.getSuccess()) {
             if ("密码已过期".equals(loginResult.getMsg())) {
@@ -64,7 +67,7 @@ public class LoginController {
     public ResponseResult<?> logout() {
         UserData loginUser = UserDataContext.getUserData();
         if (EmptyUtil.isNotEmpty(loginUser)) {
-            this.employeeApi.loginOut();
+            this.employeeApi.loginOut(loginUser);
         }
         return RRBuilder.buildSuccessBody();
     }

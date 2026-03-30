@@ -2,6 +2,7 @@ package com.mcst.module.auth.remote.impl;
 
 import com.mcst.easyfk.authority.vo.UserAuthResources;
 import com.mcst.easyfk.core.dto.login.LoginResult;
+import com.mcst.easyfk.core.dto.login.UserData;
 import com.mcst.easyfk.core.dto.response.BaseResult;
 import com.mcst.easyfk.remote.sc.BaseApiRemoteImpl;
 import com.mcst.module.auth.api.IEmployeeApi;
@@ -52,8 +53,8 @@ public class EmployeeApiScImpl extends BaseApiRemoteImpl<IEmployeeRemote, Employ
     }
 
     @Override
-    public BaseResult<?> loginOut() {
-        return this.employeeRemote.loginOut();
+    public BaseResult<?> loginOut(UserData userData) {
+        return this.employeeRemote.loginOut(userData);
     }
 
     @Override
