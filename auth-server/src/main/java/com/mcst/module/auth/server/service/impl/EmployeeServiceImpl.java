@@ -348,7 +348,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
         }
         loginUser.setName(Optional.ofNullable(employee.getEmployeeName()).orElse(employee.getLoginName())).setLoginToken(cacheLoginDataResult.getData());
         LocalDateTime expireTime = LocalDateTime.now().plusMinutes(loginCacheProperties.getLiveTime());
-        LoginRecordDto loginRecordDto = LoginRecordDto.builder().loginToken(cacheLoginDataResult.getData()).loginTime(LocalDateTime.now()).expireTime(expireTime).userId(employee.getEmployeeId()).phone(employee.getMobile()).type("platform").loginIp(loginIp).deviceInfo(deviceInfo).build();
+        LoginRecordDto loginRecordDto = LoginRecordDto.builder().account(employee.getLoginName()).loginToken(cacheLoginDataResult.getData()).loginTime(LocalDateTime.now()).expireTime(expireTime).userId(employee.getEmployeeId()).phone(employee.getMobile()).type("platform").loginIp(loginIp).deviceInfo(deviceInfo).build();
         this.loginRecordService.login(loginRecordDto);
         return new LoginResult(loginUser).setHeadImage(employee.getHeaderPic());
     }
