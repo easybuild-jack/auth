@@ -5,5 +5,11 @@ dependencies {
     api('com.mcst:service-base')
     api('com.mcst:login-server')
     compileOnly('org.springframework:spring-tx')
+    testImplementation('org.junit.jupiter:junit-jupiter')
+    testRuntimeOnly('org.junit.platform:junit-platform-launcher')
+}
+
+test {
+    useJUnitPlatform()
 }
 
