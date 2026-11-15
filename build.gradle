@@ -1,7 +1,7 @@
 // 所有项目通用配置
 allprojects {
     //指定项目版本号和group
-    version = '3.2.12'
+    version = '3.5.16'
     group = 'com.mcst'
 
     apply plugin: 'java-library'
@@ -18,10 +18,14 @@ subprojects {
     dependencies {
         implementation platform(libs.dependencies)
         implementation platform(libs.moduleDependencies)
-        compileOnly libs.lombok
-        testCompileOnly libs.lombok
-        annotationProcessor(libs.lombok, libs.processor, libs.lombokMapstruct, libs.mapstructProcessor)
-        testAnnotationProcessor(libs.lombok, libs.processor, libs.lombokMapstruct, libs.mapstructProcessor)
+        // annotationProcessor 不继承 implementation 上的 platform，需显式引入才能使用 BOM 托管的版本
+        annotationProcessor platform(libs.dependencies)
+        testAnnotationProcessor platform(libs.dependencies)
+
+        compileOnly 'org.projectlombok:lombok'
+        testCompileOnly 'org.projectlombok:lombok'
+        annotationProcessor('org.projectlombok:lombok', libs.processor, libs.lombokMapstruct, libs.mapstructProcessor)
+        testAnnotationProcessor('org.projectlombok:lombok', libs.processor, libs.lombokMapstruct, libs.mapstructProcessor)
     }
     tasks.withType(JavaCompile).configureEach {
         options.compilerArgs += ['-Amapstruct.plus.nullValuePropertyMappingStrategy=IGNORE']
